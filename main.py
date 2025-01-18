@@ -22,3 +22,7 @@ if answer == "y" or "yes":
     coefficient-=0.05
 elif answer=="n" or "no":
     coefficient+=0.05
+
+# Save to a text file
+with open("output.txt", "w") as file:
+    file.write(coefficient)
