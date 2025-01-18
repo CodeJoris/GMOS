@@ -1,8 +1,5 @@
 {
-    "depart": [
-        45.5081984,
-        -73.5707136
-    ],
-    "arrivee": "bonaventure metro",
-    "estimated time": "8 min"
+    "depart": "4909 roslyn avenue montreal",
+    "arrivee": "4917 rue fulton",
+    "estimated time": "4 min"
 }
