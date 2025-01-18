@@ -1,12 +1,12 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/run-python', methods=['GET'])
-def run_python():
-    # Ici, vous pouvez exécuter votre code Python
-    result = "Résultat de l'exécution de Python"
-    return jsonify(result)
+@app.route('/get_variable', methods=['GET'])
+def get_variable():
+    # La variable à renvoyer
+    my_variable = "Bonjour, voici la variable Python!"
+    return jsonify({"variable": my_variable})
 
 if __name__ == '__main__':
     app.run(debug=True)

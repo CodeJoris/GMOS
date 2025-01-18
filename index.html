@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Variable</title>
+    <script>
+        async function fetchVariable() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/get_variable');
+                const data = await response.json();
+                document.getElementById('output').textContent = data.variable;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('output').textContent = 'Erreur lors de la récupération de la variable.';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Récupération d'une variable Python</h1>
+    <button onclick="fetchVariable()">Afficher la variable</button>
+    <p id="output">Cliquez sur le bouton pour voir la variable.</p>
+</body>
+</html>
