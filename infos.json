@@ -1,9 +1,9 @@
 {
-    "estimated time": "Coefficient updated to: 0.95",
+    "estimated time": "Coefficient updated to: 0.8999999999999999",
     "depart": "4909 roslyn avenue montreal",
-    "arrivee": "new york",
+    "arrivee": "4917 rue fulton",
     "mode": "walking",
-    "initial_time": 493393.0,
-    "WCoef": 0.95,
+    "initial_time": 563.35,
+    "WCoef": 0.8999999999999999,
     "CCoef": 1.0
 }
