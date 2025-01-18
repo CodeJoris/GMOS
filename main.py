@@ -49,6 +49,7 @@ def coef_update(inp):
 if output:
     route = output[0]
     leg = route['legs'][0]
+    print(leg)
     estimated = leg['duration']['value']  # Estimated time by the API in seconds
     corrected_time = int(estimated * coefficient)
     corrected_time = sec_to_min(corrected_time)
