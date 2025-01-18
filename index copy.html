@@ -3,21 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save Data to JSON File</title>
-    <script src="js/script.js" defer></script>
+    <title>Input Form</title>
 </head>
 <body>
-    <h2>Enter Addresses</h2>
-    <form id="addressForm">
-        <label for="startAdress">Start Address:</label>
-        <input type="text" id="startAdress" name="startAdress" required>
-        <br><br>
+
+    <h1>User Input Form</h1>
+    <form id="inputForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
         
-        <label for="endAdress">End Address:</label>
-        <input type="text" id="endAdress" name="endAdress" required>
-        <br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
         
-        <button type="button" onclick="saveData()">Save to JSON</button>
+        <button type="submit">Submit</button>
     </form>
+
+    <script>
+        // Handle form submission
+        document.getElementById('inputForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting the traditional way
+            
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+
+            // Prepare data as JSON
+            let data = {
+                "name": name,
+                "email": email
+            };
+
+            // Send the data to the server
+            fetch('/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Data saved successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error saving data.');
+            });
+        });
+    </script>
+
 </body>
 </html>
