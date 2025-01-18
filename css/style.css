@@ -188,3 +188,6 @@ button:hover
 {
 	background-color: #00aeef;
 }
+.hidden {
+    display: none;
+}

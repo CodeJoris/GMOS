@@ -1,25 +1,9 @@
 {
-    "depart": "4919 roslyn avenue montreal",
+    "depart": "4909 roslyn avenue montreal",
     "arrivee": "4917 rue fulton",
-    "estimated time": "6 min",
-    "name": "joris",
-    "email": {
-        "depart": "4919 roslyn avenue montreal",
-        "arrivee": "4917 rue fulton",
-        "estimated time": "6 min",
-        "name": "joris",
-        "email": {
-            "depart": "4919 roslyn avenue montreal",
-            "arrivee": "4917 rue fulton",
-            "estimated time": "6 min",
-            "name": "joris",
-            "email": {
-                "depart": "4919 roslyn avenue montreal",
-                "arrivee": "4917 rue fulton",
-                "estimated time": "6 min",
-                "name": "joris",
-                "email": "theil.joris2@gmail.com"
-            }
-        }
-    }
+    "mode": "w",
+    "estimated time": "3086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086419753086 h 25 min",
+    "WCoef": "1",
+    "CCoef": "1",
+    "faster": "y"
 }

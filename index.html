@@ -15,7 +15,7 @@
         <label for="arrivee">Arrivee:</label>
         <input type="text" id="arriveeInput" name="arrivee"><br><br>
         
-        <input type="text" id="estimatedTimeInput" name="estimated_time"><br><br>
+        <input type="text" id="estimatedTimeInput" name="estimated_time" class="hidden"><br><br>
         
         <button type="submit">Submit</button>
     </form>
@@ -53,7 +53,7 @@
 
             jsonData.depart = depart;
             jsonData.arrivee = arrivee;
-            jsonData["estimated time"] = estimatedTime;
+        
 
             updateDisplay();
         });
