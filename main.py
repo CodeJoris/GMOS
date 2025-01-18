@@ -4,6 +4,12 @@ import app
 
 gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
 now = datetime.now()
+
+geolocation_result = gmaps.geolocate()
+lat = geolocation_result['location']['lat']
+lng = geolocation_result['location']['lng']
+print(geolocation_result)
+
 depart = "4909 roslyn avenue montreal"
 arrivee = "4917 rue fulton"
 app.json_edit("depart",depart)
@@ -13,7 +19,7 @@ mode = input("How do you want to get there: walking (W), transit (T), car (C)? "
 choix = "walking"
 if mode == "t" or mode == "transit":
     choix = "transit"
-    with open("TCoef.txt", "r") as file:
+    with open("WCoef.txt", "r") as file:
         coefficient = float(file.readline().strip())
 elif mode == "c" or mode == "car":
     choix = "driving"
@@ -23,20 +29,20 @@ else:
     with open("WCoef.txt", "r") as file:
         coefficient = float(file.readline().strip())
 
-output = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
+output = gmaps.directions((lat,lng), arrivee, mode=choix, departure_time=now)
 
 def sec_to_min(ina):
     if ina < 3600:
-        return f"{ina // 60} min"
+        return f"{int(ina // 60)} min"
     else:
         no_h = (ina // 60) // 60
         no_m = (ina // 60) % 60
-        return f"{no_h} h {no_m} min"
+        return f"{int(no_h)} h {int(no_m)} min"
 
 def coef_update(inp):
     global coefficient
     if choix == "transit":
-        filename = "TCoef.txt"
+        filename = "WCoef.txt"
     elif choix == "driving":
         filename = "CCoef.txt"
     else:
@@ -52,9 +58,19 @@ def coef_update(inp):
 if output:
     route = output[0]
     leg = route['legs'][0]
-    print(leg)
+    ##print(leg)
     if choix=="transit":
-        for elt in leg
+        total_seconds=0
+        for elt in leg['steps']:
+            if elt["travel_mode"]=="WALKING":
+                total_seconds+=elt["duration"]["value"]*coefficient
+                print(elt["duration"]["value"]*coefficient)
+            else:
+                total_seconds+=elt["duration"]["value"]
+                print(elt["duration"]["value"])
+        corrected_time=sec_to_min(total_seconds)
+        print(corrected_time)
+
     else:
         estimated = leg['duration']['value']  # Estimated time by the API in seconds
         corrected_time = int(estimated * coefficient)

@@ -2,17 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afficher JSON</title>
 </head>
 <body>
-    <div id="output">Chargement...</div>
+    <ul id="infos"></ul>
 
     <script>
-        // Simuler le contenu d'un JSON
-        const data = fetch('http://127.0.0.1:5000');
+        main();
+        async function main() {
+            const all_info = await getData();
+            const elt = document.querySelector("#infos");
 
-        // Afficher la valeur "message" dans la div
-        document.getElementById("output").textContent = data.message;
+            for (const key in all_info) {
+                if (all_info.hasOwnProperty(key)) {
+                    elt.innerHTML += `<li>${key}: ${all_info[key]}</li>`;
+                }
+            }
+        }
+
+        async function getData() {
+            const res = await fetch("infos.json");
+            const data = await res.json();
+            return data;
+        }
     </script>
+
+
+    
 </body>
 </html>
