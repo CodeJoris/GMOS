@@ -13,7 +13,7 @@ if mode == "t" or mode=="transit":
     with open("TCoef.txt", "r") as file:
         coefficient = float(file.readline())
 elif mode == "c" or mode=="car":
-    choix = "car"
+    choix = "driving"
     with open("CCoef.txt", "r") as file:
         coefficient = float(file.readline())
 else:
@@ -32,16 +32,14 @@ def sec_to_min(ina):
         return (str(no_h)+" h "+str(no_m)+ " min")
     
 def coef_update(inp):
-    if mode == "t" or "transit":
-        choix = "transit"
+    if choix == "transit":
         with open("TCoef.txt", "w") as file:
             if inp=="y" or inp=="yes":
                 file.write(str(coefficient-0.05))
             elif inp=="n" or inp=="no":
                 file.write(str(coefficient+0.05))
 
-    elif mode == "c" or "car":
-        choix = "car"
+    elif choix == "driving":
         with open("CCoef.txt", "w") as file:
             if inp=="y" or inp=="yes":
                 file.write(str(coefficient-0.05))
@@ -59,7 +57,8 @@ def coef_update(inp):
 if output:
     route = output[0]
     leg = route['legs'][0]
-    estimated=leg['distance']['value'] #this is the estimated time by the API in seconds
+    print(leg)
+    estimated=leg['duration']['value'] #this is the estimated time by the API in seconds
     corrected_time = int((estimated)*coefficient)
     corrected_time = sec_to_min(corrected_time)
     print(f"Estimated Time: ", corrected_time)
