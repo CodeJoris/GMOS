@@ -52,9 +52,18 @@ def coef_update(inp):
 if output:
     route = output[0]
     leg = route['legs'][0]
-    print(leg)
+    ##print(leg)
     if choix=="transit":
-        for elt in leg
+        total_seconds=0
+        for elt in leg['steps']:
+            print(elt["duration"]["value"])
+            if elt["travel_mode"]=="WALKING":
+                total_seconds+=elt["duration"]["value"]*coefficient
+            else:
+                total_seconds+=elt["duration"]["value"]
+        corrected_time=sec_to_min(total_seconds)
+        print(corrected_time)
+
     else:
         estimated = leg['duration']['value']  # Estimated time by the API in seconds
         corrected_time = int(estimated * coefficient)
