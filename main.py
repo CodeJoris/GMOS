@@ -1,91 +1,142 @@
-    
+from flask import Flask, request, render_template_string
 import googlemaps
 from datetime import datetime
-import app
-import time
-jsonsave=app.json_update()
-while True:
-    now = datetime.now()
-    time.sleep(1)
-    if jsonsave!=app.json_update():
-        gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
+import jsonmaster  # Changed import from 'app' to 'jsonmaster'
 
-        geolocation_result = gmaps.geolocate()
-        lat = geolocation_result['location']['lat']
-        lng = geolocation_result['location']['lng']
+app = Flask(__name__)
 
-        depart = app.json_catch("depart")
-        arrivee = app.json_catch("arrivee")
-
-        mode = app.json_catch("mode")
-        choix = "walking"
-        if mode == "t" or mode == "transit":
-            choix = "transit"
-            coefficient = app.json_catch("WCoef")
-        elif mode == "c" or mode == "car":
-            choix = "driving"
-            coefficient = app.json_catch("CCoef")
-        else:
-            coefficient = app.json_catch("WCoef")
+# HTML template for the input form
+html_template = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Directions</title>
+</head>
+<body>
+    <h1>Get Directions</h1>
+    <form action="/directions" method="post">
+        <label for="depart">Departure:</label>
+        <input type="text" id="depart" name="depart" required>
+        <br><br>
+        <label for="arrivee">Arrival:</label>
+        <input type="text" id="arrivee" name="arrivee" required>
+        <br><br>
+        <label for="mode">Mode of Transportation:</label>
+        <select id="mode" name="mode">
+            <option value="walking">Walking</option>
+            <option value="transit">Transit</option>
+            <option value="driving">Driving</option>
+        </select>
+        <br><br>
+        <button type="submit">Get Directions</button>
+    </form>
     
-        output = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
+    {% if result %}
+        <h2>Estimated Time: {{ result }}</h2>
+        <form action="/update_coefficient" method="post">
+            <p>Did you arrive faster, slower, or just on time?</p>
+            <button type="submit" name="status" value="faster">Faster</button>
+            <button type="submit" name="status" value="slower">Slower</button>
+            <button type="submit" name="status" value="ontime">On Time</button>
+        </form>
+    {% endif %}
+</body>
+</html>
+"""
 
-        def sec_to_min(ina):
-            if ina < 3600:
-                return f"{int(ina // 60)} min"
-            else:
-                no_h = (ina // 60) // 60
-                no_m = (ina // 60) % 60
-                return f"{int(no_h)} h {int(no_m)} min"
+@app.route('/')
+def home():
+    return render_template_string(html_template, result=None)
 
-        def coef_update(inp):
-            global coefficient
-            if choix == "transit":
-                if inp in ("y", "yes"):
-                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))-0.02))
-                elif inp in ("n", "no"):
-                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))+0.02))
-            elif choix == "driving":
-                if inp in ("y", "yes"):
-                    app.json_edit("WCoef",str(float(app.json_catch("CCoef"))-0.05))
-                elif inp in ("n", "no"):
-                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))+0.05))
-            else:
-                if inp in ("y", "yes"):
-                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))-0.05))
-                elif inp in ("n", "no"):
-                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))+0.05))
+@app.route('/directions', methods=['POST'])
+def get_directions():
+    gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')  # Replace with your API key
+    now = datetime.now()
 
-        if output:
-            route = output[0]
+    # Get form data and update JSON
+    depart = request.form.get('depart')
+    arrivee = request.form.get('arrivee')
+    mode = request.form.get('mode', 'walking').lower()
+
+    jsonmaster.json_edit("depart", depart)
+    jsonmaster.json_edit("arrivee", arrivee)
+    jsonmaster.json_edit("mode", mode)
+
+    # Retrieve coefficients with fallback values
+    if mode == "transit":
+        coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  # Default to 1.0 if missing
+        choix = "transit"
+    elif mode == "driving":
+        coefficient = float(jsonmaster.json_catch("CCoef", 1.0))  # Default to 1.0 if missing
+        choix = "driving"
+    else:  # Default to walking
+        coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  # Default to 1.0 if missing
+        choix = "walking"
+
+    try:
+        # Get directions from Google Maps API
+        directions = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
+        if directions:
+            route = directions[0]
             leg = route['legs'][0]
-            if choix=="transit":
-                total_seconds=0
-                for elt in leg['steps']:
-                    if elt["travel_mode"]=="WALKING":
-                        total_seconds+=elt["duration"]["value"]*coefficient
-                        print(elt["duration"]["value"]*coefficient)
-                    else:
-                        total_seconds+=elt["duration"]["value"]
-                        print(elt["duration"]["value"])
-                corrected_time=sec_to_min(total_seconds)
-                print(corrected_time)
+
+            if choix == "transit":
+                total_seconds = sum(
+                    step["duration"]["value"] * coefficient if step["travel_mode"] == "WALKING" else step["duration"]["value"]
+                    for step in leg["steps"]
+                )
             else:
-                estimated = leg['duration']['value']  # Estimated time by the API in seconds
-                corrected_time = int(estimated * coefficient)
-                corrected_time = sec_to_min(corrected_time)
-                print(f"Estimated Time: {corrected_time}")
+                estimated = leg["duration"]["value"]
+                total_seconds = estimated * coefficient
+
+            corrected_time = sec_to_min(total_seconds)
+            jsonmaster.json_edit("estimated time", corrected_time)
+            jsonmaster.json_edit("initial_time", total_seconds)
         else:
-            print("No directions found!")
+            corrected_time = "No directions found!"
+            jsonmaster.json_edit("estimated time", corrected_time)
+            jsonmaster.json_edit("initial_time", 0)
+    except Exception as e:
+        corrected_time = f"Error: {str(e)}"
+        jsonmaster.json_edit("estimated time", corrected_time)
+        jsonmaster.json_edit("initial_time", 0)
 
-        app.json_edit("estimated time",corrected_time)
-        notupdated=True
-        app.json_edit("faster","")
-        while notupdated:
-            if app.json_catch("faster")!="":
-                answer = app.json_catch("faster")
-                coef_update(answer)
-                app.json_edit("faster","")
-                notupdated=False
+    # Render the template with the result
+    return render_template_string(html_template, result=corrected_time)
 
-        jsonsave=app.json_update()
+@app.route('/update_coefficient', methods=['POST'])
+def update_coefficient():
+    status = request.form.get('status')
+    mode = jsonmaster.json_catch("mode", "walking")  # Default to walking if mode is missing
+    coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  # Default to 1.0 if missing
+    initial_time = jsonmaster.json_catch("initial_time", 0)
+
+    # Adjust the coefficient based on user input
+    if status == "faster":
+        coefficient -= 0.05  # Decrease coefficient for faster arrival
+    elif status == "slower":
+        coefficient += 0.05  # Increase coefficient for slower arrival
+    elif status == "ontime":
+        pass  # No change to coefficient if on time
+
+    # Update coefficient in the JSON file based on mode
+    if mode == "driving":
+        jsonmaster.json_edit("CCoef", coefficient)  # Update driving coefficient
+    else:
+        jsonmaster.json_edit("WCoef", coefficient)  # Update walking or transit coefficient
+
+    # Provide feedback to user and render the result
+    jsonmaster.json_edit("estimated time", f"Coefficient updated to: {coefficient}")
+    return render_template_string(html_template, result=f"Coefficient updated to: {coefficient}")
+
+def sec_to_min(seconds):
+    """Convert seconds to hours and minutes."""
+    if seconds < 3600:
+        return f"{int(seconds // 60)} min"
+    else:
+        no_h = (seconds // 60) // 60
+        no_m = (seconds // 60) % 60
+        return f"{int(no_h)} h {int(no_m)} min"
+
+if __name__ == '__main__':
+    app.run(debug=True)
