@@ -13,7 +13,7 @@ mode = input("How do you want to get there: walking (W), transit (T), car (C)? "
 choix = "walking"
 if mode == "t" or mode == "transit":
     choix = "transit"
-    with open("TCoef.txt", "r") as file:
+    with open("WCoef.txt", "r") as file:
         coefficient = float(file.readline().strip())
 elif mode == "c" or mode == "car":
     choix = "driving"
@@ -27,16 +27,16 @@ output = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
 
 def sec_to_min(ina):
     if ina < 3600:
-        return f"{ina // 60} min"
+        return f"{int(ina // 60)} min"
     else:
         no_h = (ina // 60) // 60
         no_m = (ina // 60) % 60
-        return f"{no_h} h {no_m} min"
+        return f"{int(no_h)} h {int(no_m)} min"
 
 def coef_update(inp):
     global coefficient
     if choix == "transit":
-        filename = "TCoef.txt"
+        filename = "WCoef.txt"
     elif choix == "driving":
         filename = "CCoef.txt"
     else:
@@ -56,11 +56,12 @@ if output:
     if choix=="transit":
         total_seconds=0
         for elt in leg['steps']:
-            print(elt["duration"]["value"])
             if elt["travel_mode"]=="WALKING":
                 total_seconds+=elt["duration"]["value"]*coefficient
+                print(elt["duration"]["value"]*coefficient)
             else:
                 total_seconds+=elt["duration"]["value"]
+                print(elt["duration"]["value"])
         corrected_time=sec_to_min(total_seconds)
         print(corrected_time)
 
