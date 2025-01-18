@@ -4,10 +4,9 @@ from datetime import datetime
 import app
 import time
 jsonsave=app.json_update()
-print(jsonsave)
 while True:
     now = datetime.now()
-    time.sleep(5)
+    time.sleep(1)
     if jsonsave!=app.json_update():
         gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
 
