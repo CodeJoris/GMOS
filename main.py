@@ -24,3 +24,7 @@ addressvalidation_result =  gmaps.addressvalidation(['1600 Amphitheatre Pk'],
 
 # Get an Address Descriptor of a location in the reverse geocoding response
 address_descriptor_result = gmaps.reverse_geocode((40.714224, -73.961452), enable_address_descriptor=True)
+
+depart = input("Where are you ?")
+arrivee = input("Where do you want to go ?")
+output = gmaps.directions(depart,arrivee,mode="walk",departure_time=now)
