@@ -8,11 +8,11 @@ arrivee = input("Where do you want to go ?")
 
 mode = input("How do you want to get there : walking (W), transit (T), car (C) ?").lower()
 choix="walking"
-if mode == "t" or "transit":
+if mode == "t" or mode=="transit":
     choix = "transit"
     with open("TCoef.txt", "r") as file:
         coefficient = float(file.readline())
-elif mode == "c" or "car":
+elif mode == "c" or mode=="car":
     choix = "car"
     with open("CCoef.txt", "r") as file:
         coefficient = float(file.readline())
@@ -32,10 +32,28 @@ def sec_to_min(ina):
         return (str(no_h)+" h "+str(no_m)+ " min")
     
 def coef_update(inp):
+    if mode == "t" or "transit":
+        choix = "transit"
+        with open("TCoef.txt", "w") as file:
+            if inp=="y" or inp=="yes":
+                file.write(str(coefficient-0.05))
+            elif inp=="n" or inp=="no":
+                file.write(str(coefficient+0.05))
 
-    with open("data.txt", "r") as file:
-        if inp=="y" or inp=="yes":
-            
+    elif mode == "c" or "car":
+        choix = "car"
+        with open("CCoef.txt", "w") as file:
+            if inp=="y" or inp=="yes":
+                file.write(str(coefficient-0.05))
+            elif inp=="n" or inp=="no":
+                file.write(str(coefficient+0.05))
+    else:
+        with open("WsCoef.txt", "w") as file:
+            if inp=="y" or inp=="yes":
+                file.write(str(coefficient-0.05))
+            elif inp=="n" or inp=="no":
+                file.write(str(coefficient+0.05))  
+        
             
 
 if output:
@@ -51,10 +69,7 @@ else:
 
 
 answer = input("Did you reach your destination faster or slower than expected ? (Y/N)").lower
-if answer == "y" or "yes":
-    if 
-elif answer=="n" or "no":
-    coefficient+=0.05
+coef_update(answer)
 
 
 # Save to a text file
