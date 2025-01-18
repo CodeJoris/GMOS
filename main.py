@@ -5,6 +5,7 @@ import app
 import time
 jsonsave=app.json_update()
 while True:
+    print("e")
     time.sleep(5)
     if jsonsave!=app.json_update():
         gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
