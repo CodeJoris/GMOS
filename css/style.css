@@ -2,10 +2,6 @@
 
 body
 {
-	background-image: url(../image/background.png);
-	background-repeat: no-repeat; /*l'image d'arriere plan est seuleument presente une fois*/
-	background-position: 90px -90px; /*essai et erreur pour placer l'image a l'endroit voulu*/
-	background-size: cover; /*fait en sorte que l'image d'arriere plan prenne tout la place de l'element ici le body donc toute la page*/
 	background-color: #4ecefe;
 	font-family: Arial, Sans serif;
 	
