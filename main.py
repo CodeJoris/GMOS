@@ -17,7 +17,7 @@ while True:
         depart = app.json_catch("depart")
         arrivee = app.json_catch("arrivee")
 
-        mode = input("How do you want to get there: walking (W), transit (T), car (C)? ").lower()
+        mode = app.json_catch("mode")
         choix = "walking"
         if mode == "t" or mode == "transit":
             choix = "transit"
