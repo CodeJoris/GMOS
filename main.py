@@ -21,17 +21,14 @@ while True:
         choix = "walking"
         if mode == "t" or mode == "transit":
             choix = "transit"
-            with open("WCoef.txt", "r") as file:
-                coefficient = float(file.readline().strip())
+            coefficient = app.json_catch("WCoef")
         elif mode == "c" or mode == "car":
             choix = "driving"
-            with open("CCoef.txt", "r") as file:
-                coefficient = float(file.readline().strip())
+            coefficient = app.json_catch("CCoef")
         else:
-            with open("WCoef.txt", "r") as file:
-                coefficient = float(file.readline().strip())
-
-        output = gmaps.directions((lat,lng), arrivee, mode=choix, departure_time=now)
+            coefficient = app.json_catch("WCoef")
+    
+        output = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
 
         def sec_to_min(ina):
             if ina < 3600:
@@ -44,23 +41,24 @@ while True:
         def coef_update(inp):
             global coefficient
             if choix == "transit":
-                filename = "WCoef.txt"
-            elif choix == "driving":
-                filename = "CCoef.txt"
-            else:
-                filename = "WCoef.txt"
-
-            with open(filename, "w") as file:
                 if inp in ("y", "yes"):
-                    coefficient -= 0.05
+                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))-0.02))
                 elif inp in ("n", "no"):
-                    coefficient += 0.05
-                file.write(str(coefficient))  # Update the file with the new coefficient
+                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))+0.02))
+            elif choix == "driving":
+                if inp in ("y", "yes"):
+                    app.json_edit("WCoef",str(float(app.json_catch("CCoef"))-0.05))
+                elif inp in ("n", "no"):
+                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))+0.05))
+            else:
+                if inp in ("y", "yes"):
+                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))-0.05))
+                elif inp in ("n", "no"):
+                    app.json_edit("WCoef",str(float(app.json_catch("WCoef"))+0.05))
 
         if output:
             route = output[0]
             leg = route['legs'][0]
-            ##print(leg)
             if choix=="transit":
                 total_seconds=0
                 for elt in leg['steps']:
@@ -81,11 +79,13 @@ while True:
             print("No directions found!")
 
         app.json_edit("estimated time",corrected_time)
+        notupdated=True
+        app.json_edit("faster","")
+        while notupdated:
+            if app.json_catch("faster")!="":
+                answer = app.json_catch("faster")
+                coef_update(answer)
+                app.json_edit("faster","")
+                notupdated=False
 
-        answer = input("Did you reach your destination faster or slower than expected? (Y/N): ").lower()
-        coef_update(answer)
-
-        # Save to a text file
-        with open("data.txt", "w") as file:
-            file.write(str(coefficient))
         jsonsave=app.json_update()
