@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" media="screen" title="style" href="../css/style.css"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afficher JSON</title>
@@ -14,8 +13,6 @@
         
         <label for="arrivee">Arrivee:</label>
         <input type="text" id="arriveeInput" name="arrivee"><br><br>
-        
-        <input type="text" id="estimatedTimeInput" name="estimated_time"><br><br>
         
         <button type="submit">Submit</button>
     </form>
@@ -34,8 +31,15 @@
         }
 
         async function getData() {
-            const res = await fetch("infos.json");
-            const data = await res.json();
+            // Simulate fetching data from a JSON file
+            let data = localStorage.getItem('infos');
+            if (!data) {
+                const res = await fetch("infos.json");
+                data = await res.json();
+                localStorage.setItem('infos', JSON.stringify(data));
+            } else {
+                data = JSON.parse(data);
+            }
             return data;
         }
 
@@ -49,12 +53,11 @@
             event.preventDefault();
             const depart = document.getElementById("departInput").value;
             const arrivee = document.getElementById("arriveeInput").value;
-            const estimatedTime = document.getElementById("estimatedTimeInput").value;
 
             jsonData.depart = depart;
             jsonData.arrivee = arrivee;
-            jsonData["estimated time"] = estimatedTime;
 
+            localStorage.setItem('infos', JSON.stringify(jsonData));
             updateDisplay();
         });
 
