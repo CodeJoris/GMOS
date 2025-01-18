@@ -1,12 +1,29 @@
-from flask import Flask, request, jsonify
+import json
 
-app = Flask(__name__)
 
-@app.route('/get_variable', methods=['GET'])
-def get_variable():
-    # La variable à renvoyer
-    my_variable = "Bonjour, voici la variable Python!"
-    return jsonify({"variable": my_variable})
+def json_edit(a,b):
+    with open('infos.json', 'r') as fichier:
+        data = json.load(fichier)  
+    data[a] = b
+    with open('infos.json', 'w') as fichier:
+        json.dump(data, fichier, indent=4)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+def json_catch(a):
+    with open('infos.json', 'r') as fichier:
+        data = json.load(fichier)  
+    return data[a] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
