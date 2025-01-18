@@ -1,5 +1,20 @@
 {
+<<<<<<< HEAD
     "depart": "4919 roslyn avenue montreal",
     "arrivee": "4917 rue fulton",
     "estimated time": "12 min"
+=======
+    "depart": [
+        45.5081984,
+        -73.5707136
+    ],
+    "arrivee": "bonaventure metro",
+    "estimated time": "8 min",
+
+
+
+    "CCoef": "bonaventure metro",
+    "data": "bonaventure metro",
+    "WCoef": "bonaventure metro"
+>>>>>>> 089dea63af9c51b13a73e74f3804976b38ff9bf5
 }
