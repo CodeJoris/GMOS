@@ -28,7 +28,7 @@ else:
 
 
 
-answer = input("Did you reach your destination faster or slower than expected ? (Y/N)").lower
+answer = input("Did you reach your destination faster than expected ? (Y/N)").lower
 if answer == "y" or "yes":
     coefficient-=0.05
 elif answer=="n" or "no":
