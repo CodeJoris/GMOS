@@ -1,5 +1,6 @@
 {
-    "depart": "4919 roslyn avenue montreal",
+    "depart": "madison square garden",
     "arrivee": "4917 rue fulton",
-    "estimated time": "6 min"
+    "mode": "W",
+    "estimated time": "9 min"
 }
