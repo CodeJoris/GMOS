@@ -6,12 +6,16 @@ gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
 now = datetime.now()
 
 geolocation_result = gmaps.geolocate()
-lat = geolocation_result['location']['lat']
-lng = geolocation_result['location']['lng']
-print(geolocation_result)
+your_own_location = (geolocation_result['location']['lat'],geolocation_result['location']['lng'])
 
-depart = "4909 roslyn avenue montreal"
-arrivee = "4917 rue fulton"
+
+depart = input("Start Location (Type HERE to use current location): ").lower()
+if depart == "here":
+    depart = your_own_location
+arrivee = input("End Location (Type HERE to use current location): ").lower()
+if arrivee == "here":
+    arrivee = your_own_location
+
 app.json_edit("depart",depart)
 app.json_edit("arrivee",arrivee)
 
