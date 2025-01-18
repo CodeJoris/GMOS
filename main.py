@@ -33,7 +33,7 @@ else:
     with open("WCoef.txt", "r") as file:
         coefficient = float(file.readline().strip())
 
-output = gmaps.directions((lat,lng), arrivee, mode=choix, departure_time=now)
+output = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
 
 def sec_to_min(ina):
     if ina < 3600:
