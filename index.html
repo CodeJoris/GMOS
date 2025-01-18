@@ -7,18 +7,22 @@
 </head>
 <body>
     <ul id="infos"></ul>
+    <p id="depart"></p>
+    <p id="arrivee"></p>
+    <p id="estimated_time"></p>
 
     <script>
-        main();
+        let jsonData = {};
+
         async function main() {
-            const all_info = await getData();
+            jsonData = await getData();
             const elt = document.querySelector("#infos");
 
-            for (const key in all_info) {
-                if (all_info.hasOwnProperty(key)) {
-                    elt.innerHTML += `<li>${key}: ${all_info[key]}</li>`;
-                }
-            }
+
+            // Update individual elements
+            document.getElementById("depart").innerText = `Depart: ${jsonData.depart}`;
+            document.getElementById("arrivee").innerText = `Arrivee: ${jsonData.arrivee}`;
+            document.getElementById("estimated_time").innerText = `Estimated Time: ${jsonData["estimated time"]}`;
         }
 
         async function getData() {
@@ -26,9 +30,11 @@
             const data = await res.json();
             return data;
         }
+
+        main();
     </script>
 
 
-    
+
 </body>
 </html>
