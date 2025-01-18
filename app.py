@@ -13,6 +13,12 @@ def json_catch(a):
         data = json.load(fichier)  
     return data[a] 
 
+def json_update():
+    with open('infos.json', 'r') as fichier:
+        data = json.load(fichier)  
+    return data
+
+
 
 
 
