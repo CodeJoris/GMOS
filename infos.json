@@ -1,0 +1,9 @@
+{
+    "estimated time": "Coefficient updated to: 0.95",
+    "depart": "4909 roslyn avenue montreal",
+    "arrivee": "new york",
+    "mode": "walking",
+    "initial_time": 493393.0,
+    "WCoef": 0.95,
+    "CCoef": 1.0
+}
