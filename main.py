@@ -53,10 +53,13 @@ if output:
     route = output[0]
     leg = route['legs'][0]
     print(leg)
-    estimated = leg['duration']['value']  # Estimated time by the API in seconds
-    corrected_time = int(estimated * coefficient)
-    corrected_time = sec_to_min(corrected_time)
-    print(f"Estimated Time: {corrected_time}")
+    if choix=="transit":
+        for elt in leg
+    else:
+        estimated = leg['duration']['value']  # Estimated time by the API in seconds
+        corrected_time = int(estimated * coefficient)
+        corrected_time = sec_to_min(corrected_time)
+        print(f"Estimated Time: {corrected_time}")
 else:
     print("No directions found!")
 
