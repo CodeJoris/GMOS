@@ -8,11 +8,14 @@
 <body>
     <h1>User Input Form</h1>
     <form id="inputForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br><br>
+        <label for="depart">Depart:</label>
+        <input type="text" id="departInput" name="depart"><br><br>
         
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
+        <label for="arrivee">Arrivee:</label>
+        <input type="text" id="arriveeInput" name="arrivee"><br><br>
+        
+        <label for="estimated_time">Estimated Time:</label>
+        <input type="text" id="estimatedTimeInput" name="estimated_time"><br><br>
         
         <button type="submit">Submit</button>
     </form>
@@ -27,13 +30,7 @@
 
         async function main() {
             jsonData = await getData();
-            const elt = document.querySelector("#infos");
-
-
-            // Update individual elements
-            document.getElementById("depart").innerText = `Depart: ${jsonData.depart}`;
-            document.getElementById("arrivee").innerText = `Arrivee: ${jsonData.arrivee}`;
-            document.getElementById("estimated_time").innerText = `Estimated Time: ${jsonData["estimated time"]}`;
+            updateDisplay();
         }
 
         async function getData() {
@@ -42,10 +39,26 @@
             return data;
         }
 
+        function updateDisplay() {
+            document.getElementById("depart").innerText = `Depart: ${jsonData.depart}`;
+            document.getElementById("arrivee").innerText = `Arrivee: ${jsonData.arrivee}`;
+            document.getElementById("estimated_time").innerText = `Estimated Time: ${jsonData["estimated time"]}`;
+        }
+
+        document.getElementById("inputForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const depart = document.getElementById("departInput").value;
+            const arrivee = document.getElementById("arriveeInput").value;
+            const estimatedTime = document.getElementById("estimatedTimeInput").value;
+
+            jsonData.depart = depart;
+            jsonData.arrivee = arrivee;
+            jsonData["estimated time"] = estimatedTime;
+
+            updateDisplay();
+        });
+
         main();
     </script>
-
-
-
 </body>
 </html>

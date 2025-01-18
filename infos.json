@@ -4,5 +4,11 @@
         -73.5707136
     ],
     "arrivee": "bonaventure metro",
-    "estimated time": "8 min"
+    "estimated time": "8 min",
+
+
+
+    "CCoef": "bonaventure metro",
+    "data": "bonaventure metro",
+    "WCoef": "bonaventure metro"
 }
