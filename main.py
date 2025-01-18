@@ -6,12 +6,10 @@ import time
 jsonsave=app.json_update()
 print(jsonsave)
 while True:
-    print("e")
+    now = datetime.now()
     time.sleep(5)
-    print(app.json_update())
     if jsonsave!=app.json_update():
         gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
-        now = datetime.now()
 
         geolocation_result = gmaps.geolocate()
         lat = geolocation_result['location']['lat']
