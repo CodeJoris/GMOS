@@ -4,9 +4,11 @@ from datetime import datetime
 import app
 import time
 jsonsave=app.json_update()
+print(jsonsave)
 while True:
     print("e")
     time.sleep(5)
+    print(app.json_update())
     if jsonsave!=app.json_update():
         gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
         now = datetime.now()
@@ -14,12 +16,9 @@ while True:
         geolocation_result = gmaps.geolocate()
         lat = geolocation_result['location']['lat']
         lng = geolocation_result['location']['lng']
-        print(geolocation_result)
 
-        depart = "4909 roslyn avenue montreal"
-        arrivee = "4917 rue fulton"
-        app.json_edit("depart",depart)
-        app.json_edit("arrivee",arrivee)
+        depart = app.json_catch("depart")
+        arrivee = app.json_catch("arrivee")
 
         mode = input("How do you want to get there: walking (W), transit (T), car (C)? ").lower()
         choix = "walking"
@@ -76,7 +75,6 @@ while True:
                         print(elt["duration"]["value"])
                 corrected_time=sec_to_min(total_seconds)
                 print(corrected_time)
-
             else:
                 estimated = leg['duration']['value']  # Estimated time by the API in seconds
                 corrected_time = int(estimated * coefficient)
@@ -93,3 +91,4 @@ while True:
         # Save to a text file
         with open("data.txt", "w") as file:
             file.write(str(coefficient))
+        jsonsave=app.json_update()
