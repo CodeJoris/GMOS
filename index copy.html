@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+<head>
+<script src="js/menu.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" title="style" href="css/style.css"/>
+<meta charset="utf-8">
+</head>
+
+ 
+	
+<title> GMOS/menu </title>
+<body>
+	<div id="menu" class="menu box" style="width: 250px;">
+		<a class="menu_fermer" style="font-family: arial, sans serif;" onclick="clique_menu()">x</a><br>
+		<a class="selection" href="index copy.html">Accueil</a><br>
+		<a href="pages/preset.html">Preferences</a><br>
+		<a href="pages/createur.html">Creators</a><br>
+	</div>
+	<div id="contenu" class="contenu" style="margin-left: 250px;">
+		<div class="menu_ouvrir">
+			<a onclick="clique_menu()">
+				<h3>☰</h3>
+			</a>
+		</div>
+	  
+		<center>
+			<h3 class="box">
+				Select your travel destination
+			</h3>
+		</center> 
+		
+	</div>
+    <center>
+    <h1>
+        <form id="userInputForm">
+            <label for="userInput">Starting Adress :</label>
+            <input type="text" id="startAdress" name="startAdress" placeholder="Type here" required>
+            <br><br>
+            <button type="button" onclick="saveData()">Save</button>
+        </form>
+        <form id="userInputForm">
+            <label for="userInput">Destination :</label>
+            <input type="text" id="endAdress" name="endAdress" placeholder="Type here" required>
+            <br><br>
+            <button type="button" onclick="saveData()">Save</button>
+        </form>
+    </h1>
+    </center>
+</body>
+</html>
