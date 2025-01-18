@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afficher JSON</title>
+</head>
+<body>
+    <h1>User Input Form</h1>
+    <form id="inputForm">
+        <label for="depart">Depart:</label>
+        <input type="text" id="departInput" name="depart"><br><br>
+        
+        <label for="arrivee">Arrivee:</label>
+        <input type="text" id="arriveeInput" name="arrivee"><br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+    
+    <ul id="infos"></ul>
+    <p id="depart"></p>
+    <p id="arrivee"></p>
+    <p id="estimated_time"></p>
+
+    <script>
+        let jsonData = {};
+
+        async function main() {
+            jsonData = await getData();
+            updateDisplay();
+        }
+
+        async function getData() {
+            // Simulate fetching data from a JSON file
+            let data = localStorage.getItem('infos');
+            if (!data) {
+                const res = await fetch("infos.json");
+                data = await res.json();
+                localStorage.setItem('infos', JSON.stringify(data));
+            } else {
+                data = JSON.parse(data);
+            }
+            return data;
+        }
+
+        function updateDisplay() {
+            document.getElementById("depart").innerText = `Depart: ${jsonData.depart || ''}`;
+            document.getElementById("arrivee").innerText = `Arrivee: ${jsonData.arrivee || ''}`;
+            document.getElementById("estimated_time").innerText = `Estimated Time: ${jsonData["estimated time"] || ''}`;
+        }
+
+        document.getElementById("inputForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const depart = document.getElementById("departInput").value;
+            const arrivee = document.getElementById("arriveeInput").value;
+
+            jsonData.depart = depart;
+            jsonData.arrivee = arrivee;
+
+            // Save locally for display
+            localStorage.setItem('infos', JSON.stringify(jsonData));
+            updateDisplay();
+
+            // Send to the Python backend
+            await fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ depart, arrivee })
+            });
+        });
+
+        main();
+    </script>
+</body>
+</html>
