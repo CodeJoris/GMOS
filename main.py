@@ -1,10 +1,13 @@
 import googlemaps
 from datetime import datetime
+import app
 
 gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
 now = datetime.now()
 depart = "4909 roslyn avenue montreal"
 arrivee = "4917 rue fulton"
+app.json_edit("depart",depart)
+app.json_edit("arrivee",arrivee)
 
 mode = input("How do you want to get there: walking (W), transit (T), car (C)? ").lower()
 choix = "walking"
@@ -56,6 +59,8 @@ if output:
     print(f"Estimated Time: {corrected_time}")
 else:
     print("No directions found!")
+
+app.json_edit("estimated time",corrected_time)
 
 answer = input("Did you reach your destination faster or slower than expected? (Y/N): ").lower()
 coef_update(answer)
