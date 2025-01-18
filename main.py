@@ -4,6 +4,12 @@ import app
 
 gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
 now = datetime.now()
+
+geolocation_result = gmaps.geolocate()
+lat = geolocation_result['location']['lat']
+lng = geolocation_result['location']['lng']
+print(geolocation_result)
+
 depart = "4909 roslyn avenue montreal"
 arrivee = "4917 rue fulton"
 app.json_edit("depart",depart)
@@ -23,7 +29,7 @@ else:
     with open("WCoef.txt", "r") as file:
         coefficient = float(file.readline().strip())
 
-output = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
+output = gmaps.directions((lat,lng), arrivee, mode=choix, departure_time=now)
 
 def sec_to_min(ina):
     if ina < 3600:
