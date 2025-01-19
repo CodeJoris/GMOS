@@ -41,33 +41,39 @@
             </tr>
             <tr>
                 <td>
-                    <h2>Start Location: {{ depart }}</h2>
+                    
                 </td>
             </tr>
             <tr>
-                <td>
-                    <h2>End Location: {{ arrivee }}</h2>
+                <td colspan="3" style="text-align: center;">
+                    <h2>.</h2>
                 </td>
+            </tr>
+            <tr>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
                     <button type="submit">Get Directions</button>
+                    
                 </td>
+                
             </tr>
             
             
-            <tr><td><center><h2><strong>Walking Coefficient (WCoef):</strong> {{ w_coef }}</h2></center></td>
-                <td><center><h2><strong>Driving Coefficient (CCoef):</strong> {{ c_coef }}</h2></center></td></tr>\
+            <tr><td><center><h2><strong>Walking Coefficient [🚶‍♀️]:</strong> {{ w_coef }}</h2></center></td>
+                <td><center><h2><strong>Driving Coefficient [🚗]:</strong> {{ c_coef }}</h2></center></td></tr>\
 
-            <tr><td><center><h2><strong>Min time given all green lights :</strong> {{ min_time }}</h2></center></td>
-                <td><center><h2><strong>Max time given all red lights:</strong> {{ max_time }}</h2></center></td></tr>
+            <tr><td><center><h2><strong>Min-time traffic light 🟢 :</strong> {{ min_time }}</h2></center></td>
+                <td><center><h2><strong>Max-time traffic light 🔴 :</strong> {{ max_time }}</h2></center></td></tr>
             
         </table>
     </form>
 
     {% if result %}
         <h3>Estimated Time: {{ result }}</h3>
+        
         <form action="/update_coefficient" method="post" style="text-align: center;">
+            <h2>{{ depart }} ➡️ {{ arrivee }}</h2> 
             <h2>Did you arrive faster, slower, or just on time?</h2><br>
             <button type="submit" name="status" value="faster" class="button-red">Early</button>
             <button type="submit" name="status" value="slower" class="button-orange">Late</button>
