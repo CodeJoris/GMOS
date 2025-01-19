@@ -21,6 +21,6 @@ def json_update():
         data = json.load(fichier)
     return data
 
-def json_catch2(a):
-        with open('direction.json', 'r') as fichier:
-           return json.load(fichier)
+def json_read(a):
+        with open(a, 'r') as fichier:
+            return json.load(fichier)
