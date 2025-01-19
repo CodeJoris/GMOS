@@ -64,14 +64,19 @@ def get_directions():
             corrected_time = sec_to_min(total_seconds)
 
             # count the estimated traffic lights
-            crossing_spots = lights.count_crossing_spots(depart, arrivee)
+            counted = False
+            if total_seconds < 4000:
+                crossing_spots = lights.count_crossing_spots(depart, arrivee)
+                
+                temp = crossing_spots * 10
+                time_interval = (sec_to_min(total_seconds - temp), sec_to_min(total_seconds + temp))
+                
+                jsonmaster.json_edit("min time", time_interval[0])
+                jsonmaster.json_edit("max time", time_interval[1])
+                jsonmaster.json_edit("crossing", crossing_spots)
+
+                counted = True
             
-            temp = crossing_spots * 10
-            time_interval = (sec_to_min(total_seconds - temp), sec_to_min(total_seconds + temp))
-            
-            jsonmaster.json_edit("min time", time_interval[0])
-            jsonmaster.json_edit("max time", time_interval[1])
-            jsonmaster.json_edit("crossing", crossing_spots)
             jsonmaster.json_edit("estimated time", corrected_time)
             jsonmaster.json_edit("initial_time", total_seconds)
         else:
@@ -87,10 +92,12 @@ def get_directions():
 
     w_coef = jsonmaster.json_catch("WCoef",1.0)
     c_coef = jsonmaster.json_catch("CCoef",1.0)
-    min_time = jsonmaster.json_catch("min time", 1.0)
-    max_time = jsonmaster.json_catch("max time", 1.0)
-    # Render the template with the corrected addresses
-    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time=min_time, max_time=max_time)
+    if counted:
+        min_time = jsonmaster.json_catch("min time", 1.0)
+        max_time = jsonmaster.json_catch("max time", 1.0)
+        # Render the template with the corrected addresses
+        return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time=min_time, max_time=max_time)
+    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef)
 
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():
