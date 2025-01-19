@@ -60,6 +60,9 @@ def get_directions():
         corrected_depart = leg['start_address']
         corrected_arrivee = leg['end_address']
 
+        virgule1= prendre_avant_virgule(corrected_depart)
+        virgule2= prendre_avant_virgule(corrected_arrivee)
+
         # Build the static map URL with the path
         map_url = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&markers=color:red|{corrected_depart}&markers=color:green|{corrected_arrivee}&path=color:0x0000ff|weight:5|{path}&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
        
@@ -101,7 +104,7 @@ def get_directions():
         max_time = jsonmaster.json_catch("max time", 1.0)
         # Render the template with the corrected addresses
         return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time=min_time, max_time=max_time)
-    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time='N/A : Tavel too long', max_time='N/A : Tavel too long')
+    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time='too long', max_time='too long',virgule1=virgule1,virgule2=virgule2)
 
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():
@@ -154,5 +157,7 @@ def iterate_change():
     nb = jsonmaster.json_catch("number of changes", 1.0)
     jsonmaster.json_edit("number of changes", nb+1)
 
+def prendre_avant_virgule(mot):
+    return mot.split(",")[0]
 if __name__ == '__main__':
     app.run(debug=True)

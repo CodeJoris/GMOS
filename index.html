@@ -14,7 +14,7 @@
             <!-- Second to Fifth rows with second column merged -->
             <tr>
                 <td>
-                    <label for="depart"><h2>Start Location:</h2></label>
+                    <label for="depart"><h2>Beg Location:</h2></label>
                     <input type="text" id="depart" name="depart" required>
                 </td>
                 <td rowspan="5">
@@ -31,11 +31,11 @@
             </tr>
             <tr>
                 <td>
-                    <label for="mode"><h2>Mode of Transportation:</h2></label>
+                    <label for="mode"><h2>Mode of Transportation:ㅤㅤㅤㅤ</h2></label>
                     <select id="mode" name="mode">
-                        <option value="walking">Walking</option>
-                        <option value="transit">Transit</option>
-                        <option value="driving">Driving</option>
+                        <option value="walking">Walking 🚶‍♀️</option>
+                        <option value="transit">Transit 🚌</option>
+                        <option value="driving">Driving 🚗</option>
                     </select>
                 </td>
             </tr>
@@ -61,10 +61,11 @@
             
             
             <tr><td><center><h2><strong>Walking Coefficient [🚶‍♀️]:</strong> {{ w_coef }}</h2></center></td>
-                <td><center><h2><strong>Driving Coefficient [🚗]:</strong> {{ c_coef }}</h2></center></td></tr>\
+                <td><center><h2><strong>Min-time light 🟢 :</strong> {{ min_time }}</h2></center></td>
 
-            <tr><td><center><h2><strong>Min-time traffic light 🟢 :</strong> {{ min_time }}</h2></center></td>
-                <td><center><h2><strong>Max-time traffic light 🔴 :</strong> {{ max_time }}</h2></center></td></tr>
+            
+            <tr><td><center><h2><strong>Driving Coefficient [🚗]:</strong> {{ c_coef }}</h2></center></td>
+                <td><center><h2><strong>Max-time light 🔴 :</strong> {{ max_time }}</h2></center></td>
             
         </table>
     </form>
@@ -73,11 +74,14 @@
         <h3>Estimated Time: {{ result }}</h3>
         
         <form action="/update_coefficient" method="post" style="text-align: center;">
-            <h2>{{ depart }} ➡️ {{ arrivee }}</h2> 
-            <h2>Did you arrive faster, slower, or just on time?</h2><br>
-            <button type="submit" name="status" value="faster" class="button-red">Early</button>
-            <button type="submit" name="status" value="slower" class="button-orange">Late</button>
-            <button type="submit" name="status" value="ontime" class="button-green">On Time</button>
+            <h2>{{ virgule1 }} ➡️ {{ virgule2 }}</h2> <br>
+            <button type="submit" name="status" value="faster" class="button-green">Early 👼</button>
+            <button type="submit" name="status" value="ontime" class="button-orange">On Time 😉</button>
+            <button type="submit" name="status" value="slower" class="button-red">Late 💀</button>
+
+
+
+
         </form>
     {% endif %}
 </body>
