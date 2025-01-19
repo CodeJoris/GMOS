@@ -6,8 +6,43 @@ import jsonmaster  # Changed import from 'app' to 'jsonmaster'
 app = Flask(__name__)
 
 # HTML template for the input form
-with open("index.html", "r", encoding="utf-8") as file:
-    html_template = file.read()
+html_template = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Directions</title>
+</head>
+<body>
+    <h1>Get Directions</h1>
+    <form action="/directions" method="post">
+        <label for="depart">Departure:</label>
+        <input type="text" id="depart" name="depart" required>
+        <br><br>
+        <label for="arrivee">Arrival:</label>
+        <input type="text" id="arrivee" name="arrivee" required>
+        <br><br>
+        <label for="mode">Mode of Transportation:</label>
+        <select id="mode" name="mode">
+            <option value="walking">Walking</option>
+            <option value="transit">Transit</option>
+            <option value="driving">Driving</option>
+        </select>
+        <br><br>
+        <button type="submit">Get Directions</button>
+    </form>
+    
+    {% if result %}
+        <h2>Estimated Time: {{ result }}</h2>
+        <form action="/update_coefficient" method="post">
+            <p>Did you arrive faster, slower, or just on time?</p>
+            <button type="submit" name="status" value="faster">Faster</button>
+            <button type="submit" name="status" value="slower">Slower</button>
+            <button type="submit" name="status" value="ontime">On Time</button>
+        </form>
+    {% endif %}
+</body>
+</html>
+"""
 
 @app.route('/')
 def home():
@@ -104,4 +139,4 @@ def sec_to_min(seconds):
         return f"{int(no_h)} h {int(no_m)} min"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="192.168.2.61", port=25565)
