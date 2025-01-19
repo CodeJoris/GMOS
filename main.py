@@ -11,6 +11,8 @@ with open("index.html", "r", encoding="utf-8") as file:
 
 @app.route('/')
 def home():
+    start_address = "123 Main St, Cityville"  # Replace with the actual start address
+    end_address = "456 Elm St, Townsville"   # Replace with the actual end address
     return render_template_string(html_template, result=None, map_url=None)
 
 @app.route('/directions', methods=['POST'])

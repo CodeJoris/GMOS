@@ -26,30 +26,8 @@
   
     {% if result %}
         <h3>Estimated Time: {{ result }}</h3>
-        <form action="/update_coefficient" method="post">
-            <p><h2>Did you arrive faster, slower, or just on time?</h2></p>
-            <button type="submit" name="status" value="faster" class="button-red">Faster</button>
-            <button type="submit" name="status" value="slower" class="button-orange">Slower</button>
-            <button type="submit" name="status" value="ontime" class="button-green">On Time</button>
-        </form>
-    
-        <form action="/start_address" method="post">
-            <label for="start_address"><h2>Start Address</h2></label>
-            <input type="text" name="start_address" placeholder="Enter start address">
-            <button type="submit">Submit</button>
-        </form>
-    
-        <!-- Form to input the end address -->
-        <form action="/end_address" method="post">
-            <label for="end_address"><h2>End Address</h2></label>
-            <input type="text" name="end_address" placeholder="Enter end address">
-            <button type="submit">Submit</button>
-        </form>
-        
-        <!-- Section to display the results dynamically -->
-        <h2>Results:</h2>
-        <p>Start Address: {{ start_address }}</p>
-        <p>End Address: {{ end_address }}</p>
+    <p><h2>Start Address: {{ start_address }}</h2></p>
+    <p><h2>End Address: {{ end_address }}</h2></p>
     {% endif %}
 </body>
 </html>
