@@ -1,9 +1,12 @@
 {
-    "estimated time": "19 min",
-    "depart": "trottier building",
-    "arrivee": "4917 rue fulton",
-    "mode": "driving",
-    "initial_time": 1159.0,
+    "estimated time": "Error: list index out of range",
+    "depart": "110 Av. de Dieppe",
+    "arrivee": "5175 Av. des Sorbiers",
+    "mode": "walking",
+    "min time": "53 min",
+    "max time": "59 min",
+    "crossing": 19,
+    "initial_time": 0,
     "WCoef": 0.8999999999999999,
     "CCoef": 0.95
 }

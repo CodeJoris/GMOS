@@ -29,8 +29,6 @@ def get_directions():
     arrivee = request.form.get('arrivee')
     mode = request.form.get('mode', 'walking').lower()
 
-    # count the estimated traffic lights
-    crossing_spots = lights.count_crossing_spots(depart, arrivee)
 
     # Update JSON
     jsonmaster.json_edit("depart", depart)
@@ -64,6 +62,16 @@ def get_directions():
         if directions:
             total_seconds = leg["duration"]["value"] * coefficient
             corrected_time = sec_to_min(total_seconds)
+
+            # count the estimated traffic lights
+            crossing_spots = lights.count_crossing_spots(depart, arrivee)
+            
+            temp = crossing_spots * 10
+            time_interval = (sec_to_min(total_seconds - temp), sec_to_min(total_seconds + temp))
+            
+            jsonmaster.json_edit("min time", time_interval[0])
+            jsonmaster.json_edit("max time", time_interval[1])
+            jsonmaster.json_edit("crossing", crossing_spots)
             jsonmaster.json_edit("estimated time", corrected_time)
             jsonmaster.json_edit("initial_time", total_seconds)
         else:

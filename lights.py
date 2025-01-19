@@ -20,6 +20,9 @@ def haversine(coord1, coord2):
     r = 6371  # Radius of Earth in kilometers. Use 3956 for miles. Determines return value units.
     return c * r * 1000  # Return value will be in meters
 
+def traffic_light_impact(num_lights, light_duration):
+    return num_lights * light_duration
+
 
 def count_crossing_spots(start_address, end_address):
     # Get latitude and longitude for the start and end addresses
