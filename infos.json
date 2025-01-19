@@ -1,12 +1,13 @@
 {
-    "estimated time": "1 h 3 min",
-    "depart": "westmount",
-    "arrivee": "outremont",
+    "estimated time": "1 h 0 min",
+    "depart": "Trottier Building, Montreal, Quebec, Canada",
+    "arrivee": "5633 Rue Plantagenet, Montreal, Quebec, Canada",
     "mode": "walking",
-    "min time": "58 min",
-    "max time": "1 h 9 min",
-    "crossing": 35,
-    "initial_time": 3835.2,
-    "WCoef": 0.85,
-    "CCoef": 0.95
+    "min time": "57 min",
+    "max time": "1 h 4 min",
+    "crossing": 19,
+    "initial_time": 3658.2,
+    "WCoef": 0.95833,
+    "CCoef": 1.0,
+    "number of changes": 3
 }
