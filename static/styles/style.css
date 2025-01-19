@@ -4,7 +4,7 @@ body
 	background-repeat: no-repeat; /*l'image d'arriere plan est seuleument presente une fois*/
 	background-position: 90px -90px; /*essai et erreur pour placer l'image a l'endroit voulu*/
 	background-size: cover; /*fait en sorte que l'image d'arriere plan prenne tout la place de l'element ici le body donc toute la page*/
-	background-color: #4ecefe;
+	background-color: #2e3440;
 	font-family: Arial, Sans serif;
 	
 }
@@ -13,19 +13,34 @@ placeholder
 	color:gray;
 	opacity: 0.5;
 }
+h1{text-align: center;
+	color: #b48ead; 
+	font-size: 45px; 
+	
+
+}
 h2 
 {
-	text-align: center;
-	color: #f7eab7; 
-	border-radius: 5px; /*les cotes sont arrondit, c'est plus jolie (je pense)*/
-	background-color: #0090c6; 
-	font-size: 34px; 
-	padding: 10px; /*pour ajouter de l'espace dans un element, jusqu'a 4 valeur en fonction de ou on veut mettre le padding, ici le pading est sur tout les cotes*/
-	box-shadow: 0px 5px 5px #00aeef; /*pour faire un effect de profondeur (comme drop shadow sur psh)*/
+	font-family: 'Calibri', sans-serif;
+	display: inline-block;
+	text-align: left;
+	color: #eceff4;  
+	font-size: 18px; 
+	
+	
 }
 h3 {
 	text-align: center;
-	color: #f7eab7; 
+	color: #bf616a; 
+	background-color: #2e3440; 
+	font-size: 50px; 
+	line-height: 65px; 
+	font-weight: bold; 
+	margin: 0 10px 15px; /*pour rajouter de l'espace entre cette element et d'autres*/
+}
+h4{
+	text-align: center;
+	color: #e020cd; 
 	background-color: #0090c6; 
 	font-size: 60px; 
 	line-height: 65px; 
@@ -34,6 +49,7 @@ h3 {
 	padding: 10px;
 	border-radius: 5px;
 }
+
 p.head
 {
 	text-align: left;
@@ -145,6 +161,49 @@ img.img1:hover
 	color: #fff;
 	font-size: 16px;
 	font-weight: bold;
+}.form button 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
+.form red 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
+.form orange 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
+.form green 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
 }
 .container {
 	position: relative;
@@ -179,14 +238,53 @@ button
 	padding: 5px;
 	border: none;
 	border-radius: 5px;
-	background-color: #0090c6;
-	color: #f7eab7;
+	background-color: #434c5e;
+	color: #ebcb8b;
 	font-size: 32px;
 	font-weight: bold;
 	cursor: pointer;
 }
+.button-red {
+    width: 300px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #bf616a;
+    color: #e5e9f0;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-orange {
+    width: 300px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d08770;
+    color: #e5e9f0;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-green {
+    width: 300px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #a3be8c;
+    color: #e5e9f0;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #81a1c1;
+}
 
 button:hover 
 {
-	background-color: #00aeef;
+	background-color: #81a1c1;
 }
