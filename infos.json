@@ -1,9 +1,9 @@
 {
-    "estimated time": "12 h 0 min",
+    "estimated time": "21 h 3 min",
     "depart": "Trottier Space Institute McGill",
     "arrivee": "Burger King Cincinnati",
-    "mode": "driving",
-    "initial_time": 43243.049999999996,
+    "mode": "transit",
+    "initial_time": 75838.40000000001,
     "WCoef": 0.85,
     "CCoef": 0.8
 }
