@@ -24,7 +24,7 @@ def home():
 
 @app.route('/directions', methods=['POST'])
 def get_directions():
-    gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
+    gmaps = googlemaps.Client(key="YOUR_API_KEY")  # Replace with your own API key
     now = datetime.now()
 
     # Get form data

@@ -1,12 +1,12 @@
 {
-    "estimated time": "1 h 2 min",
-    "depart": "Trottier Building, Montreal, Quebec, Canada",
-    "arrivee": "5633 Rue Plantagenet, Montreal, Quebec, Canada",
+    "estimated time": "Error: Nominatim could not geocode query 'Trottier Space Institute McGill'.",
+    "depart": "Trottier Space Institute McGill",
+    "arrivee": "4917 rue Fulton",
     "mode": "walking",
     "min time": "59 min",
     "max time": "1 h 5 min",
     "crossing": 19,
-    "initial_time": 3752.0,
+    "initial_time": 0,
     "WCoef": 1.0,
     "CCoef": 1.0,
     "number of changes": 0
