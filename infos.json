@@ -1,9 +1,9 @@
 {
-    "estimated time": "No directions found!",
-    "depart": "Mumbai",
-    "arrivee": "4917 rue Fulton",
-    "mode": "transit",
-    "initial_time": 0,
+    "estimated time": "194 h 12 min",
+    "depart": "mexico city",
+    "arrivee": "boca chica",
+    "mode": "walking",
+    "initial_time": 699178.4999999999,
     "WCoef": 0.8999999999999999,
     "CCoef": 0.95
 }

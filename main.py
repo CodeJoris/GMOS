@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template_string
 import googlemaps
 from datetime import datetime
-import jsonmaster  # Changed import from 'app' to 'jsonmaster'
-
+import jsonmaster  
+import json
 app = Flask(__name__)
 
 # HTML template for the input form
@@ -48,6 +48,8 @@ def get_directions():
 
         if directions:
             route = directions[0]
+            with open("directions.json", "w") as file:
+                json.dump(route, file)
             leg = route['legs'][0]
             start_address = leg['start_address']
             end_address = leg['end_address']

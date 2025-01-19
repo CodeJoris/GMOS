@@ -21,6 +21,7 @@ def json_update():
         data = json.load(fichier)
     return data
 
+
 def json_read(a):
         with open(a, 'r') as fichier:
             return json.load(fichier)
