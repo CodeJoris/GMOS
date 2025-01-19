@@ -4,5 +4,11 @@ from datetime import datetime
 import json
 
 
-dico=jsonmaster.json_read("directions.json")
-print(dico)
+directions=jsonmaster.json_read("directions.json")
+
+legs = directions["legs"][0]
+for step in legs["steps"]:
+    print(step["html_instructions"])
+    print(step["distance"]["text"])
+    print(step["duration"]["text"])
+    print("")
