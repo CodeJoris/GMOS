@@ -1,9 +1,17 @@
 {
+<<<<<<< HEAD
     "estimated time": "19 min",
     "depart": "trottier building",
     "arrivee": "4917 rue fulton",
     "mode": "driving",
     "initial_time": 1159.0,
+=======
+    "estimated time": "No directions found!",
+    "depart": "Mumbai",
+    "arrivee": "4917 rue Fulton",
+    "mode": "transit",
+    "initial_time": 0,
+>>>>>>> 2b1df04a959d3cd8bec20ff12b23af5db461b88e
     "WCoef": 0.8999999999999999,
-    "CCoef": 1.0
+    "CCoef": 0.95
 }
