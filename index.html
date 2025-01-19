@@ -65,8 +65,8 @@
         <h3>Estimated Time: {{ result }}</h3>
         <form action="/update_coefficient" method="post" style="text-align: center;">
             <h2>Did you arrive faster, slower, or just on time?</h2><br>
-            <button type="submit" name="status" value="faster" class="button-red">Faster</button>
-            <button type="submit" name="status" value="slower" class="button-orange">Slower</button>
+            <button type="submit" name="status" value="faster" class="button-red">Early</button>
+            <button type="submit" name="status" value="slower" class="button-orange">Late</button>
             <button type="submit" name="status" value="ontime" class="button-green">On Time</button>
         </form>
     {% endif %}

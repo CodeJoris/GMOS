@@ -1,12 +1,12 @@
 {
-    "estimated time": "Error: list index out of range",
-    "depart": "110 Av. de Dieppe",
-    "arrivee": "5175 Av. des Sorbiers",
+    "estimated time": "53 min",
+    "depart": "Trottier Building, Montreal, Quebec, Canada",
+    "arrivee": "5633 Rue Plantagenet, Montreal, Quebec, Canada",
     "mode": "walking",
-    "min time": "53 min",
-    "max time": "59 min",
+    "min time": "49 min",
+    "max time": "56 min",
     "crossing": 19,
-    "initial_time": 0,
-    "WCoef": 0.8999999999999999,
+    "initial_time": 3189.2,
+    "WCoef": 0.85,
     "CCoef": 0.95
 }
