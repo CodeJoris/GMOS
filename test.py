@@ -1,14 +1,13 @@
 import osmnx as ox
 import networkx as nx
-import requests
 
-def get_traffic_lights_count(start_address, end_address):
+def count_crossing_spots(start_address, end_address):
     # Get latitude and longitude for the start and end addresses
     start_location = ox.geocode(start_address)
     end_location = ox.geocode(end_address)
 
-    # Get the OSM graph for the area with a smaller distance
-    G = ox.graph_from_point(start_location, dist=5000, network_type='all')
+    # Get the OSM graph for the area
+    G = ox.graph_from_point(start_location, dist=10000, network_type='drive')
 
     # Find the nearest nodes in the graph to the start and end locations
     start_node = ox.nearest_nodes(G, start_location[1], start_location[0])
@@ -17,30 +16,17 @@ def get_traffic_lights_count(start_address, end_address):
     # Find the shortest path between start and end nodes
     route = nx.shortest_path(G, start_node, end_node, weight="length")
 
-    # Get the route as a list of coordinates
-    route_coordinates = [(G.nodes[node]['y'], G.nodes[node]['x']) for node in route]
+    # Count crossing spots (nodes with 3 or more neighbors) along the route
+    crossing_spots_count = 0
+    for node in route:
+        if len(list(G.neighbors(node))) >= 3:
+            crossing_spots_count += 1
 
-    # Convert route coordinates to a bounding box for querying traffic lights
-    min_lat = min(coord[0] for coord in route_coordinates)
-    max_lat = max(coord[0] for coord in route_coordinates)
-    min_lon = min(coord[1] for coord in route_coordinates)
-    max_lon = max(coord[1] for coord in route_coordinates)
-
-    # Query traffic lights using Overpass API
-    overpass_url = "http://overpass-api.de/api/interpreter"
-    overpass_query = f"""
-    [out:json];
-    node["highway"="traffic_signals"]
-    ({min_lat},{min_lon},{max_lat},{max_lon});
-    out count;
-    """
-    response = requests.get(overpass_url, params={'data': overpass_query})
-    data = response.json()
-
-    # Return the count of traffic lights
-    return data['elements'][0]['tags']['total']
+    return crossing_spots_count
 
 # Example usage
-start_address = "1600 Amphitheatre Parkway, Mountain View, CA"
-end_address = "1 Infinite Loop, Cupertino, CA"
-print(get_traffic_lights_count(start_address, end_address))
+start_address = "5633 rue plantagenet, Montreal, Quebec, Canada"
+end_address = "4917 rue fulton, Montreal, Quebec, Canada"
+crossing_spots = count_crossing_spots(start_address, end_address)
+
+print(f"Number of crossing spots along the route: {crossing_spots}")
