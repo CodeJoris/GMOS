@@ -1,9 +1,9 @@
 {
-    "estimated time": "21 h 3 min",
-    "depart": "Trottier Space Institute McGill",
-    "arrivee": "Burger King Cincinnati",
-    "mode": "transit",
-    "initial_time": 75838.40000000001,
+    "estimated time": "15 min",
+    "depart": "Trottier Space Institute McGil",
+    "arrivee": "4917 rue fulton",
+    "mode": "driving",
+    "initial_time": 947.2,
     "WCoef": 0.85,
-    "CCoef": 0.8
+    "CCoef": 0.85
 }
