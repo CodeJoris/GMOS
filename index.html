@@ -1,8 +1,9 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <title>GMOS</title>
 </head>
 <body>
@@ -20,14 +21,24 @@
             <option value="transit">Transit</option>
             <option value="driving">Driving</option>
         </select>
-        <img src="{{ map_url }}" alt="Route Map">
         <br><br>
+
+        <h2>Map:</h2>
+        <!-- Displaying the map (placeholder or actual route map) -->
+        <img src="{{ map_url }}" alt="Route Map" style="display: block; margin-left: auto; margin-right: auto;">
+        <br><br>
+
         <button type="submit">Get Directions</button>
-  
+    </form>
+
     {% if result %}
         <h3>Estimated Time: {{ result }}</h3>
-    <p><h2>Start Address: {{ start_address }}</h2></p>
-    <p><h2>End Address: {{ end_address }}</h2></p>
+        <form action="/update_coefficient" method="post">
+            <p>Did you arrive faster, slower, or just on time?</p>
+            <button type="submit" name="status" value="faster" class="button-red">Faster</button>
+            <button type="submit" name="status" value="slower" class="button-orange">Slower</button>
+            <button type="submit" name="status" value="ontime" class="button-green">On Time</button>
+        </form>
     {% endif %}
 </body>
 </html>

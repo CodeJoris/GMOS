@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template_string
 import googlemaps
 from datetime import datetime
-import jsonmaster  
-import json
+import jsonmaster  # Changed import from 'app' to 'jsonmaster'
+
 app = Flask(__name__)
 
 # HTML template for the input form
@@ -11,10 +11,11 @@ with open("index.html", "r", encoding="utf-8") as file:
 
 @app.route('/')
 def home():
-    return render_template_string(html_template, result=None, map_url=None)
+    # Placeholder map URL for Montreal to show when the page is first loaded
+    map_url = "https://maps.googleapis.com/maps/api/staticmap?center=Montreal,QC&zoom=12&size=600x400&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
+    return render_template_string(html_template, result=None, map_url=map_url)
 
 @app.route('/directions', methods=['POST'])
-
 def get_directions():
     gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
     now = datetime.now()
@@ -49,11 +50,7 @@ def get_directions():
             map_url = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&markers=color:red|{depart}&markers=color:green|{arrivee}&path=color:0x0000ff|weight:5|{path}&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
 
             route = directions[0]
-            with open("directions.json", "w") as file:
-                json.dump(route, file)
             leg = route['legs'][0]
-            start_address = leg['start_address']
-            end_address = leg['end_address']
 
             if choix == "transit":
                 total_seconds = sum(
@@ -78,16 +75,6 @@ def get_directions():
 
     # Render the template with the result and the correct map_url
     return render_template_string(html_template, result=corrected_time, map_url=map_url)
-
-@app.route('/start_address', methods=['POST'])
-def start_address():
-    start_address = request.form.get('start_address')
-    return render_template_string(html_template, start_address=start_address, end_address=None)
-
-@app.route('/end_address', methods=['POST'])
-def end_address():
-    end_address = request.form.get('end_address')
-    return render_template_string(html_template, start_address=None, end_address=end_address)
 
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():
