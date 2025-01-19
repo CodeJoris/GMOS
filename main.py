@@ -45,6 +45,8 @@ def get_directions():
         if directions:
             route = directions[0]
             leg = route['legs'][0]
+            start_address = leg['start_address']
+            end_address = leg['end_address']
 
             if choix == "transit":
                 total_seconds = sum(
