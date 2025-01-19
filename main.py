@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template_string
 import googlemaps
 from datetime import datetime
-import jsonmaster  # Changed import from 'app' to 'jsonmaster'
+import jsonmaster, lights  # Changed import from 'app' to 'jsonmaster'
+
 
 app = Flask(__name__)
 
@@ -27,6 +28,9 @@ def get_directions():
     depart = request.form.get('depart')
     arrivee = request.form.get('arrivee')
     mode = request.form.get('mode', 'walking').lower()
+
+    # count the estimated traffic lights
+    crossing_spots = lights.count_crossing_spots(depart, arrivee)
 
     # Update JSON
     jsonmaster.json_edit("depart", depart)
