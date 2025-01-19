@@ -71,10 +71,11 @@
     </form>
 
     {% if result %}
-        <h3>Estimated Time: {{ result }}</h3>
+        
         
         <form action="/update_coefficient" method="post" style="text-align: center;">
             <h2>{{ virgule1 }} ➡️ {{ virgule2 }}</h2> <br>
+            <h3>Estimated Time: {{ result }}</h3>
             <button type="submit" name="status" value="faster" class="button-green">Early 👼</button>
             <button type="submit" name="status" value="ontime" class="button-orange">On Time 😉</button>
             <button type="submit" name="status" value="slower" class="button-red">Late 💀</button>
