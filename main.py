@@ -9,11 +9,9 @@ app = Flask(__name__)
 with open("index.html", "r", encoding="utf-8") as file:
     html_template = file.read()
 
-
-
 @app.route('/')
 def home():
-    return render_template_string(html_template, result=None)
+    return render_template_string(html_template, result=None, map_url=None)
 
 @app.route('/directions', methods=['POST'])
 def get_directions():
@@ -42,6 +40,12 @@ def get_directions():
     try:
         # Get directions from Google Maps API
         directions = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
+        steps = directions[0]['legs'][0]['steps']
+        path = "|".join([f"{step['end_location']['lat']},{step['end_location']['lng']}" for step in steps])
+
+        # Build the static map URL with the path
+        map_url = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&markers=color:red|{depart}&markers=color:green|{arrivee}&path=color:0x0000ff|weight:5|{path}&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
+
         if directions:
             route = directions[0]
             leg = route['legs'][0]
@@ -69,8 +73,8 @@ def get_directions():
         jsonmaster.json_edit("estimated time", corrected_time)
         jsonmaster.json_edit("initial_time", 0)
 
-    # Render the template with the result
-    return render_template_string(html_template, result=corrected_time)
+    # Render the template with the result and map_url
+    return render_template_string(html_template, result=corrected_time, map_url=map_url)
 
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():

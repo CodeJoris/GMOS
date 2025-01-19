@@ -12,7 +12,7 @@ def json_catch(a, default=None):
     try:
         with open('infos.json', 'r') as fichier:
             data = json.load(fichier)
-        return data.get(a, default)  
+        return data.get(a, default)
     except FileNotFoundError:
         return default 
 
