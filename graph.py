@@ -2,8 +2,7 @@ import jsonmaster
 import googlemaps
 from datetime import datetime
 import json
-
-
+import requests
 
 def correction(mot):
     dico=  {'Rue University': 'University',
@@ -22,11 +21,16 @@ directions=jsonmaster.json_read("directions.json")
 
 legs = directions["legs"][0]
 locs = []
+path = []
 for step in legs["steps"]:
+    path.append((step['start_location']['lat'], step['start_location']['lng']))
+    path.append((step['end_location']['lat'], step['end_location']['lng']))
     try:
         locs.append(correction(step["html_instructions"].split("<b>")[2].split("</b>")[0]))
     except:
         continue
+
+print(path)
 
 with open('feux.json', 'r') as fichier:
     data = json.load(fichier)
@@ -49,6 +53,10 @@ for feature in data['features']:
 
 
 print(locs)
+
+
+
+
 nb_feux = 0
 for i in range(len(locs)-1):
     rue1 = locs[i]
