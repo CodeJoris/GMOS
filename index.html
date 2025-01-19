@@ -27,7 +27,7 @@
     {% if result %}
         <h3>Estimated Time: {{ result }}</h3>
         <form action="/update_coefficient" method="post">
-            <p>Did you arrive faster, slower, or just on time?</p>
+            <p><h2>Did you arrive faster, slower, or just on time?</h2></p>
             <button type="submit" name="status" value="faster" class="button-red">Faster</button>
             <button type="submit" name="status" value="slower" class="button-orange">Slower</button>
             <button type="submit" name="status" value="ontime" class="button-green">On Time</button>
