@@ -97,7 +97,7 @@ def get_directions():
         max_time = jsonmaster.json_catch("max time", 1.0)
         # Render the template with the corrected addresses
         return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time=min_time, max_time=max_time)
-    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef)
+    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time='N/A : Tavel too long', max_time='N/A : Tavel too long')
 
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():
