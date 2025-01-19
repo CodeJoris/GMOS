@@ -5,6 +5,9 @@ import jsonmaster, lights  # Changed import from 'app' to 'jsonmaster'
 
 
 app = Flask(__name__)
+jsonmaster.json_edit("WCoef", 1.0)
+jsonmaster.json_edit("CCoef", 1.0)
+jsonmaster.json_edit("number of changes", 0)
 
 # HTML template for the input form
 with open("index.html", "r", encoding="utf-8") as file:
@@ -31,6 +34,7 @@ def get_directions():
 
 
     # Update JSON
+    
     jsonmaster.json_edit("depart", depart)
     jsonmaster.json_edit("arrivee", arrivee)
     jsonmaster.json_edit("mode", mode)
@@ -97,7 +101,7 @@ def get_directions():
         max_time = jsonmaster.json_catch("max time", 1.0)
         # Render the template with the corrected addresses
         return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time=min_time, max_time=max_time)
-    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef)
+    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef, min_time='N/A : Tavel too long', max_time='N/A : Tavel too long')
 
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():
@@ -106,14 +110,20 @@ def update_coefficient():
     coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  
     initial_time = jsonmaster.json_catch("initial_time", 0)
 
+    num_changes = jsonmaster.json_catch("number of changes", 1.0)
+    scale_factor = max(0.01, 1 / (num_changes + 1))  # Ensure scale_factor doesn't go below 0.01
+
     if status == "faster":
-        coefficient -= 0.05
-        coefficient=round(coefficient,2)
+        coefficient -= 0.05 * scale_factor
+        coefficient = round(coefficient, 5)
+        iterate_change()
     elif status == "slower":
-        coefficient += 0.05 
-        coefficient=round(coefficient,2)
+        coefficient += 0.05 * scale_factor
+        coefficient = round(coefficient, 5)
+        iterate_change()
     elif status == "ontime":
-        pass  
+        iterate_change()
+        pass
 
     if mode == "driving":
         jsonmaster.json_edit("CCoef", coefficient) 
@@ -139,6 +149,10 @@ def sec_to_min(seconds):
         no_h = (seconds // 60) // 60
         no_m = (seconds // 60) % 60
         return f"{int(no_h)} h {int(no_m)} min"
+
+def iterate_change():
+    nb = jsonmaster.json_catch("number of changes", 1.0)
+    jsonmaster.json_edit("number of changes", nb+1)
 
 if __name__ == '__main__':
     app.run(debug=True)
