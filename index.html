@@ -5,41 +5,61 @@
     <title>GMOS</title>
 </head>
 <body>
-    <h1>Google Maps on Steroids</h1>
     <form action="/directions" method="post">
-        <label for="depart"><h2>Start Location:</h2></label>
-        <input type="text" id="depart" name="depart" required>
-        <br><br>
-        <label for="arrivee"><h2>End Location:</h2></label>
-        <input type="text" id="arrivee" name="arrivee" required>
-        <br><br>
-        <label for="mode"><h2>Mode of Transportation:</h2></label>
-        <select id="mode" name="mode">
-            <option value="walking">Walking</option>
-            <option value="transit">Transit</option>
-            <option value="driving">Driving</option>
-        </select>
-        <br><br>
-
-        <!-- Display the map on the left and the locations on the right -->
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <div>
-                <img src="{{ map_url }}" alt="Route Map" style="width: 600px; height: 400px; display: block;">
-            </div>
-            <div style="margin-left: 20px;">
-                <h2>Start Location: {{ depart }}</h2>
-                <br>
-                <h2>End Location: {{ arrivee }}</h2>
-            </div>
-        </div>
-
-        <br><br>
-        <button type="submit">Get Directions</button>
+        <table border="1" align="center">
+            <!-- First row with merged columns -->
+            <tr>
+                <td colspan="2"><h1>Google Maps on Steroids</h1></td>
+            </tr>
+            <!-- Second to Fifth rows with second column merged -->
+            <tr>
+                <td>
+                    <label for="depart"><h2>Start Location:</h2></label>
+                    <input type="text" id="depart" name="depart" required>
+                </td>
+                <td rowspan="5">
+                    <div style="display: flex; justify-content: center; align-items: center;">
+                        <img src="{{ map_url }}" alt="Route Map" style="width: 600px; height: 400px; display: block;">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="arrivee"><h2>End Location:</h2></label>
+                    <input type="text" id="arrivee" name="arrivee" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="mode"><h2>Mode of Transportation:</h2></label>
+                    <select id="mode" name="mode">
+                        <option value="walking">Walking</option>
+                        <option value="transit">Transit</option>
+                        <option value="driving">Driving</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2>Start Location: {{ depart }}</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2>End Location: {{ arrivee }}</h2>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button type="submit">Get Directions</button>
+                </td>
+            </tr>
+        </table>
     </form>
-    
+
     {% if result %}
         <h3>Estimated Time: {{ result }}</h3>
-        <form action="/update_coefficient" method="post">
+        <form action="/update_coefficient" method="post" style="text-align: center;">
             <h2>Did you arrive faster, slower, or just on time?</h2><br>
             <button type="submit" name="status" value="faster" class="button-red">Faster</button>
             <button type="submit" name="status" value="slower" class="button-orange">Slower</button>

@@ -9,11 +9,12 @@ app = Flask(__name__)
 with open("index.html", "r", encoding="utf-8") as file:
     html_template = file.read()
 
+# Default placeholder map
+PLACEHOLDER_MAP_URL = "https://maps.googleapis.com/maps/api/staticmap?center=Montreal,QC&zoom=12&size=600x400&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
+
 @app.route('/')
 def home():
-    # Placeholder map showing Montreal
-    map_url = "https://maps.googleapis.com/maps/api/staticmap?center=Montreal,QC&zoom=12&size=600x400&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
-    return render_template_string(html_template, result=None, map_url=map_url, depart=None, arrivee=None)
+    return render_template_string(html_template, result=None, map_url=PLACEHOLDER_MAP_URL, depart=None, arrivee=None)
 
 @app.route('/directions', methods=['POST'])
 def get_directions():
@@ -92,9 +93,12 @@ def update_coefficient():
     else:
         jsonmaster.json_edit("WCoef", coefficient)  
 
-    # Provide feedback to user and render the result
-    jsonmaster.json_edit("estimated time", f"Coefficient updated to: {coefficient}")
-    return render_template_string(html_template, result=f"Coefficient updated to: {coefficient}")
+    # Reset to placeholder map
+    return render_template_string(html_template, 
+                                  result=None, 
+                                  map_url=PLACEHOLDER_MAP_URL, 
+                                  depart=None, 
+                                  arrivee=None)
 
 def sec_to_min(seconds):
     """Convert seconds to hours and minutes."""

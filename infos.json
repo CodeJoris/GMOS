@@ -1,9 +1,9 @@
 {
-    "estimated time": "Coefficient updated to: 0.8499999999999999",
+    "estimated time": "1 h 17 min",
     "depart": "trottier building",
     "arrivee": "4917 rue fulton",
     "mode": "walking",
-    "initial_time": 3531.999999999999,
-    "WCoef": 0.8499999999999999,
+    "initial_time": 4635.75,
+    "WCoef": 1.1,
     "CCoef": 0.95
 }
