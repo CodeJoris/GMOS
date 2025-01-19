@@ -14,7 +14,9 @@ PLACEHOLDER_MAP_URL = "https://maps.googleapis.com/maps/api/staticmap?center=Mon
 
 @app.route('/')
 def home():
-    return render_template_string(html_template, result=None, map_url=PLACEHOLDER_MAP_URL, depart=None, arrivee=None)
+    w_coef = jsonmaster.json_catch("WCoef",1.0)
+    c_coef = jsonmaster.json_catch("CCoef",1.0)
+    return render_template_string(html_template, result=None, map_url=PLACEHOLDER_MAP_URL, depart=None, arrivee=None,w_coef=w_coef,c_coef=c_coef)
 
 @app.route('/directions', methods=['POST'])
 def get_directions():
@@ -54,7 +56,7 @@ def get_directions():
 
         # Build the static map URL with the path
         map_url = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&markers=color:red|{corrected_depart}&markers=color:green|{corrected_arrivee}&path=color:0x0000ff|weight:5|{path}&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
-
+       
         if directions:
             total_seconds = leg["duration"]["value"] * coefficient
             corrected_time = sec_to_min(total_seconds)
@@ -71,8 +73,10 @@ def get_directions():
         jsonmaster.json_edit("estimated time", corrected_time)
         jsonmaster.json_edit("initial_time", 0)
 
+    w_coef = jsonmaster.json_catch("WCoef",1.0)
+    c_coef = jsonmaster.json_catch("CCoef",1.0)
     # Render the template with the corrected addresses
-    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee)
+    return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef)
 
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():
@@ -83,8 +87,10 @@ def update_coefficient():
 
     if status == "faster":
         coefficient -= 0.05
+        coefficient=round(coefficient,2)
     elif status == "slower":
         coefficient += 0.05 
+        coefficient=round(coefficient,2)
     elif status == "ontime":
         pass  
 
@@ -94,11 +100,15 @@ def update_coefficient():
         jsonmaster.json_edit("WCoef", coefficient)  
 
     # Reset to placeholder map
+    w_coef = jsonmaster.json_catch("WCoef",1.0)
+    c_coef = jsonmaster.json_catch("CCoef",1.0)
+    # Render the template with the corrected addresses
+    #return render_template_string(html_template, result=corrected_time, map_url=map_url, depart=corrected_depart, arrivee=corrected_arrivee, w_coef=w_coef, c_coef=c_coef)
     return render_template_string(html_template, 
                                   result=None, 
                                   map_url=PLACEHOLDER_MAP_URL, 
                                   depart=None, 
-                                  arrivee=None)
+                                  arrivee=None,w_coef=w_coef, c_coef=c_coef)
 
 def sec_to_min(seconds):
     """Convert seconds to hours and minutes."""

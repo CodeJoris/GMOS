@@ -6,7 +6,7 @@
 </head>
 <body>
     <form action="/directions" method="post">
-        <table border="1" align="center">
+        <table border="0" align="center">
             <!-- First row with merged columns -->
             <tr>
                 <td colspan="2"><h1>Google Maps on Steroids</h1></td>
@@ -54,6 +54,10 @@
                     <button type="submit">Get Directions</button>
                 </td>
             </tr>
+            
+            
+            <tr><td><center><h2><strong>Walking Coefficient (WCoef):</strong> {{ w_coef }}</h2></center></td>
+                <td><center><h2><strong>Driving Coefficient (CCoef):</strong> {{ c_coef }}</h2></center></td></tr>
         </table>
     </form>
 
