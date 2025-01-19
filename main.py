@@ -14,6 +14,8 @@ def home():
     return render_template_string(html_template, result=None, map_url=None)
 
 @app.route('/directions', methods=['POST'])
+@app.route('/start_address', methods=['POST'])
+@app.route('/end_address', methods=['POST'])
 def get_directions():
     gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
     now = datetime.now()
