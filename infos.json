@@ -1,9 +1,9 @@
 {
-    "estimated time": "Coefficient updated to: 1.0",
-    "depart": "4909 roslyn avenue montreal",
-    "arrivee": "new york",
-    "mode": "driving",
-    "initial_time": 21800.0,
+    "estimated time": "30 min",
+    "depart": "Trottier Space Institute McGill",
+    "arrivee": "4917 rue Fulton",
+    "mode": "transit",
+    "initial_time": 1859.0,
     "WCoef": 1.0,
     "CCoef": 1.0
 }

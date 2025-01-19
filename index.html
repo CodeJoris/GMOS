@@ -2,15 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Directions</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <title>Google Maps on Steroids</title>
 </head>
 <body>
-    <h1>Get Directions</h1>
+    <h1>Google Maps on Steroids</h1>
     <form action="/directions" method="post">
-        <label for="depart">Departure:</label>
+        <label for="depart">Start Location:</label>
         <input type="text" id="depart" name="depart" required>
         <br><br>
-        <label for="arrivee">Arrival:</label>
+        <label for="arrivee">End Location:</label>
         <input type="text" id="arrivee" name="arrivee" required>
         <br><br>
         <label for="mode">Mode of Transportation:</label>
