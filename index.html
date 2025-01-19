@@ -25,12 +25,12 @@
     </form>
     
     {% if result %}
-        <h4>Estimated Time: {{ result }}</h4>
+        <h3>Estimated Time: {{ result }}</h3>
         <form action="/update_coefficient" method="post">
             <p>Did you arrive faster, slower, or just on time?</p>
-            <button type="submit" name="status" value="faster">Faster</button>
-            <button type="submit" name="status" value="slower">Slower</button>
-            <button type="submit" name="status" value="ontime">On Time</button>
+            <button type="submit" name="status" value="faster" class="button-red">Faster</button>
+            <button type="submit" name="status" value="slower" class="button-orange"Slower</button>
+            <button type="submit" name="status" value="ontime" class="button-green">On Time</button>
         </form>
     {% endif %}
 </body>

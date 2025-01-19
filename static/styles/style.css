@@ -161,6 +161,49 @@ img.img1:hover
 	color: #fff;
 	font-size: 16px;
 	font-weight: bold;
+}.form button 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
+.form red 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
+.form orange 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
+.form green 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
 }
 .container {
 	position: relative;
@@ -200,6 +243,45 @@ button
 	font-size: 32px;
 	font-weight: bold;
 	cursor: pointer;
+}
+.button-red {
+    width: 300px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #bf616a;
+    color: #e5e9f0;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-orange {
+    width: 300px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d08770;
+    color: #e5e9f0;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-green {
+    width: 300px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #a3be8c;
+    color: #e5e9f0;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00aeef;
 }
 
 button:hover 
