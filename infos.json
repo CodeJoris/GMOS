@@ -1,9 +1,9 @@
 {
-    "estimated time": "19 min",
-    "depart": "trottier building",
-    "arrivee": "4917 rue fulton",
-    "mode": "driving",
-    "initial_time": 1159.0,
+    "estimated time": "151 h 16 min",
+    "depart": "mexico",
+    "arrivee": "boca chica",
+    "mode": "walking",
+    "initial_time": 544587.2999999999,
     "WCoef": 0.8999999999999999,
     "CCoef": 0.95
 }
