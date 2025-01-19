@@ -4,5 +4,5 @@ from datetime import datetime
 import json
 
 
-dico=jsonmaster.read("direction.json")
+dico=jsonmaster.json_read("directions.json")
 print(dico)

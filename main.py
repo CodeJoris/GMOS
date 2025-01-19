@@ -16,6 +16,7 @@ def home():
     return render_template_string(html_template, result=None, map_url=map_url)
 
 @app.route('/directions', methods=['POST'])
+
 def get_directions():
     gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
     now = datetime.now()
@@ -51,6 +52,8 @@ def get_directions():
 
             route = directions[0]
             leg = route['legs'][0]
+            start_address = leg['start_address']
+            end_address = leg['end_address']
 
             if choix == "transit":
                 total_seconds = sum(
@@ -75,6 +78,16 @@ def get_directions():
 
     # Render the template with the result and the correct map_url
     return render_template_string(html_template, result=corrected_time, map_url=map_url)
+
+@app.route('/start_address', methods=['POST'])
+def start_address():
+    start_address = request.form.get('start_address')
+    return render_template_string(html_template, start_address=start_address, end_address=None)
+
+@app.route('/end_address', methods=['POST'])
+def end_address():
+    end_address = request.form.get('end_address')
+    return render_template_string(html_template, start_address=None, end_address=end_address)
 
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():
