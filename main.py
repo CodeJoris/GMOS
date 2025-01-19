@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template_string
 import googlemaps
 from datetime import datetime
-import jsonmaster  # Changed import from 'app' to 'jsonmaster'
-
+import jsonmaster  
+import json
 app = Flask(__name__)
 
 # HTML template for the input form
@@ -11,8 +11,6 @@ with open("index.html", "r", encoding="utf-8") as file:
 
 @app.route('/')
 def home():
-    start_address = "123 Main St, Cityville"  # Replace with the actual start address
-    end_address = "456 Elm St, Townsville"   # Replace with the actual end address
     return render_template_string(html_template, result=None, map_url=None)
 
 @app.route('/directions', methods=['POST'])
@@ -43,14 +41,16 @@ def get_directions():
     try:
         # Get directions from Google Maps API
         directions = gmaps.directions(depart, arrivee, mode=choix, departure_time=now)
-        steps = directions[0]['legs'][0]['steps']
-        path = "|".join([f"{step['end_location']['lat']},{step['end_location']['lng']}" for step in steps])
-
-        # Build the static map URL with the path
-        map_url = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&markers=color:red|{depart}&markers=color:green|{arrivee}&path=color:0x0000ff|weight:5|{path}&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
-
         if directions:
+            steps = directions[0]['legs'][0]['steps']
+            path = "|".join([f"{step['end_location']['lat']},{step['end_location']['lng']}" for step in steps])
+
+            # Build the static map URL with the path
+            map_url = f"https://maps.googleapis.com/maps/api/staticmap?size=600x400&markers=color:red|{depart}&markers=color:green|{arrivee}&path=color:0x0000ff|weight:5|{path}&key=AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ"
+
             route = directions[0]
+            with open("directions.json", "w") as file:
+                json.dump(route, file)
             leg = route['legs'][0]
             start_address = leg['start_address']
             end_address = leg['end_address']
@@ -76,7 +76,7 @@ def get_directions():
         jsonmaster.json_edit("estimated time", corrected_time)
         jsonmaster.json_edit("initial_time", 0)
 
-    # Render the template with the result and map_url
+    # Render the template with the result and the correct map_url
     return render_template_string(html_template, result=corrected_time, map_url=map_url)
 
 @app.route('/start_address', methods=['POST'])
@@ -95,7 +95,6 @@ def update_coefficient():
     mode = jsonmaster.json_catch("mode", "walking") 
     coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  
     initial_time = jsonmaster.json_catch("initial_time", 0)
-
 
     if status == "faster":
         coefficient -= 0.05

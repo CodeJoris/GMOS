@@ -1,2 +1,5 @@
 .git/
 venv/
+infos.json
+__pycache__/
+directions.json
