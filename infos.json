@@ -1,13 +1,13 @@
 {
-    "estimated time": "1 h 0 min",
+    "estimated time": "130 h 37 min",
     "depart": "Trottier Building, Montreal, Quebec, Canada",
-    "arrivee": "5633 Rue Plantagenet, Montreal, Quebec, Canada",
+    "arrivee": "248 2nd Ave",
     "mode": "walking",
-    "min time": "57 min",
-    "max time": "1 h 4 min",
+    "min time": "56 min",
+    "max time": "1 h 3 min",
     "crossing": 19,
-    "initial_time": 3658.2,
-    "WCoef": 0.95833,
+    "initial_time": 470236.23939,
+    "WCoef": 1.0,
     "CCoef": 1.0,
-    "number of changes": 3
+    "number of changes": 0
 }
