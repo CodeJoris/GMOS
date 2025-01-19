@@ -49,7 +49,7 @@ h4{
 	padding: 10px;
 	border-radius: 5px;
 }
-}
+
 p.head
 {
 	text-align: left;
@@ -281,10 +281,10 @@ button
 }
 
 button:hover {
-    background-color: #00aeef;
+    background-color: #81a1c1;
 }
 
 button:hover 
 {
-	background-color: #00aeef;
+	background-color: #81a1c1;
 }

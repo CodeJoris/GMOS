@@ -1,9 +1,9 @@
 {
-    "estimated time": "30 min",
+    "estimated time": "1 h 8 min",
     "depart": "Trottier Space Institute McGill",
     "arrivee": "4917 rue Fulton",
-    "mode": "transit",
-    "initial_time": 1859.0,
-    "WCoef": 1.0,
+    "mode": "walking",
+    "initial_time": 4100.4,
+    "WCoef": 0.8999999999999999,
     "CCoef": 1.0
 }
