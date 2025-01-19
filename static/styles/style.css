@@ -1,0 +1,192 @@
+body
+{
+	background-image: url(../image/background.png);
+	background-repeat: no-repeat; /*l'image d'arriere plan est seuleument presente une fois*/
+	background-position: 90px -90px; /*essai et erreur pour placer l'image a l'endroit voulu*/
+	background-size: cover; /*fait en sorte que l'image d'arriere plan prenne tout la place de l'element ici le body donc toute la page*/
+	background-color: #4ecefe;
+	font-family: Arial, Sans serif;
+	
+}
+placeholder
+{
+	color:gray;
+	opacity: 0.5;
+}
+h2 
+{
+	text-align: center;
+	color: #f7eab7; 
+	border-radius: 5px; /*les cotes sont arrondit, c'est plus jolie (je pense)*/
+	background-color: #0090c6; 
+	font-size: 34px; 
+	padding: 10px; /*pour ajouter de l'espace dans un element, jusqu'a 4 valeur en fonction de ou on veut mettre le padding, ici le pading est sur tout les cotes*/
+	box-shadow: 0px 5px 5px #00aeef; /*pour faire un effect de profondeur (comme drop shadow sur psh)*/
+}
+h3 {
+	text-align: center;
+	color: #f7eab7; 
+	background-color: #0090c6; 
+	font-size: 60px; 
+	line-height: 65px; 
+	font-weight: bold; 
+	margin: 0 10px 15px; /*pour rajouter de l'espace entre cette element et d'autres*/
+	padding: 10px;
+	border-radius: 5px;
+}
+p.head
+{
+	text-align: left;
+	color: #f7eab7; 
+	font-size: 26px; 
+	font-family: Calibri, sans serif;
+	font-weight: bold;
+}
+p.body
+{
+	text-align: left;
+	color: #f7eab7; 
+	font-size: 20px; 
+	font-family: Calibri, sans serif;
+	font-weight:bold;
+}
+span.tuto
+{
+	background-color: #0090c6; 	
+	font-size: 20px ;
+	border-radius: 5px;
+	font-family: Arial, sans serif ;
+	font-weight: bold ;
+	padding: 10px;
+	box-shadow: 5px 5px 5px #00aeef;
+}
+img.img1:hover 
+{
+    transform: scale(1.25); /*rend l'image 25% plus grande quand on passe la souris dessus d'ou le "hover"*/
+	text-align: center ;
+	
+}
+.box {
+	box-shadow: 5px 5px 5px #00aeef;
+
+}
+.menu
+{
+	background-color: #0090c6;
+	height: 100%;
+	position: fixed; /*ces 3 lignes font en sorte que les points d'extremites gauche et haut reste a la position de 0px du haut et 0px de la gauche, avec une hauteur de 100% de la page on est sur que le menu prendra la totalite de la gauche*/
+	top: 0;
+	left: 0;
+	overflow-x: hidden; /*fait en sorte que le texte dans le menu soit cahcher quand le menu est cacher*/
+	transition: 0.5s; /*rend la transtition entre menu ferme et ouvert plus longue donc plus agreable*/
+	padding-top: 5px;
+}
+.menu_ouvrir
+{
+	display: flex;  /*la propriete 'display' precise le type d'arangement que la page doit utiliser*/
+	text-align: left;
+	position: absolute;
+	top: 24px;
+	cursor: pointer;
+}
+.menu_fermer
+{
+	text-align: right;
+	cursor: pointer;
+}
+.menu a:hover,.selection 
+{
+	font-weight: bold;
+}
+.menu a
+{
+	display: block;  
+	text-decoration: none; 
+	padding: 0px 10px 10px 20px;
+	color: #f7eab7;
+	font-size: 19px; 
+	cursor: pointer;
+	text-align: left;
+}
+.contenu
+{
+	transition: margin-left .5s;
+	padding: 16px;
+	text-shadow: none;
+}
+.back
+{
+	align-self: flex-end;
+	justify-self: flex-start;
+}
+.form 
+{
+	width: 500px;
+	padding: 10px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 5px 5px 5px #00aeef;
+}
+.form input 
+{
+	width: 350px;
+	padding: 5px;
+	border: 1px solid #000000;
+	border-radius: 5px;
+}
+
+.form button 
+{
+	width: 150px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+}
+.container {
+	position: relative;
+}
+
+.dropdown-content1 {
+	display: none;/*pour que le dropdown reste*/
+	position: absolute;
+	width: 700px;
+	height: 450px;
+	background-color: #00aeef;
+	border-radius: 5px;
+	padding: 10px;
+}
+.dropdown-content2 {
+	display: none;/*pour que le dropdown reste*/
+	position: absolute;
+	width: 700px;
+	height: 450px;
+	background-color: #00aeef;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+button:focus + .dropdown-content /*:focus fait en sorte que le boutton soit seuleument actif quand clicke*/
+{ 
+	display: block;
+}
+button 
+{
+	width: 300px;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	background-color: #0090c6;
+	color: #f7eab7;
+	font-size: 32px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+button:hover 
+{
+	background-color: #00aeef;
+}
