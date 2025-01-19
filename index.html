@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
     <title>GMOS</title>
 </head>
@@ -23,18 +21,26 @@
         </select>
         <br><br>
 
-        <h2>Map:</h2>
-        <!-- Displaying the map (placeholder or actual route map) -->
-        <img src="{{ map_url }}" alt="Route Map" style="display: block; margin-left: auto; margin-right: auto;">
-        <br><br>
+        <!-- Display the map on the left and the locations on the right -->
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div>
+                <img src="{{ map_url }}" alt="Route Map" style="width: 600px; height: 400px; display: block;">
+            </div>
+            <div style="margin-left: 20px;">
+                <h2>Start Location: {{ depart }}</h2>
+                <br>
+                <h2>End Location: {{ arrivee }}</h2>
+            </div>
+        </div>
 
+        <br><br>
         <button type="submit">Get Directions</button>
     </form>
-
+    
     {% if result %}
         <h3>Estimated Time: {{ result }}</h3>
         <form action="/update_coefficient" method="post">
-            <p>Did you arrive faster, slower, or just on time?</p>
+            <h2>Did you arrive faster, slower, or just on time?</h2><br>
             <button type="submit" name="status" value="faster" class="button-red">Faster</button>
             <button type="submit" name="status" value="slower" class="button-orange">Slower</button>
             <button type="submit" name="status" value="ontime" class="button-green">On Time</button>
