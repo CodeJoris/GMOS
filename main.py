@@ -17,7 +17,7 @@ def home():
 
 @app.route('/directions', methods=['POST'])
 def get_directions():
-    gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')  # Replace with your API key
+    gmaps = googlemaps.Client(key='AIzaSyBw8lINwBQQ9t5tv02oBLwty-Kg6n3iLzQ')
     now = datetime.now()
 
     # Get form data and update JSON
@@ -29,15 +29,14 @@ def get_directions():
     jsonmaster.json_edit("arrivee", arrivee)
     jsonmaster.json_edit("mode", mode)
 
-    # Retrieve coefficients with fallback values
     if mode == "transit":
-        coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  # Default to 1.0 if missing
+        coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  
         choix = "transit"
     elif mode == "driving":
-        coefficient = float(jsonmaster.json_catch("CCoef", 1.0))  # Default to 1.0 if missing
+        coefficient = float(jsonmaster.json_catch("CCoef", 1.0))  
         choix = "driving"
     else:  # Default to walking
-        coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  # Default to 1.0 if missing
+        coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  
         choix = "walking"
 
     try:
@@ -74,23 +73,21 @@ def get_directions():
 @app.route('/update_coefficient', methods=['POST'])
 def update_coefficient():
     status = request.form.get('status')
-    mode = jsonmaster.json_catch("mode", "walking")  # Default to walking if mode is missing
-    coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  # Default to 1.0 if missing
+    mode = jsonmaster.json_catch("mode", "walking") 
+    coefficient = float(jsonmaster.json_catch("WCoef", 1.0))  
     initial_time = jsonmaster.json_catch("initial_time", 0)
 
-    # Adjust the coefficient based on user input
-    if status == "faster":
-        coefficient -= 0.05  # Decrease coefficient for faster arrival
-    elif status == "slower":
-        coefficient += 0.05  # Increase coefficient for slower arrival
-    elif status == "ontime":
-        pass  # No change to coefficient if on time
 
-    # Update coefficient in the JSON file based on mode
+    if status == "faster":
+        coefficient -= 0.05
+    elif status == "slower":
+        coefficient += 0.05 
+    elif status == "ontime":
+        pass  
     if mode == "driving":
-        jsonmaster.json_edit("CCoef", coefficient)  # Update driving coefficient
+        jsonmaster.json_edit("CCoef", coefficient) 
     else:
-        jsonmaster.json_edit("WCoef", coefficient)  # Update walking or transit coefficient
+        jsonmaster.json_edit("WCoef", coefficient)  
 
     # Provide feedback to user and render the result
     jsonmaster.json_edit("estimated time", f"Coefficient updated to: {coefficient}")
