@@ -1,9 +1,9 @@
 {
-    "estimated time": "19 min",
-    "depart": "trottier building",
+    "estimated time": "3 min",
+    "depart": "4909 roslyn avenue montreal",
     "arrivee": "4917 rue fulton",
     "mode": "driving",
-    "initial_time": 1159.0,
+    "initial_time": 190.0,
     "WCoef": 0.8999999999999999,
     "CCoef": 0.95
 }
